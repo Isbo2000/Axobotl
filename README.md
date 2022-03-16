@@ -25,3 +25,6 @@ Run the bot:
 ```sh
 npm start
 ```
+
+# Larry
+![Larry](assets/imagecommands/larry/Larry.png)
