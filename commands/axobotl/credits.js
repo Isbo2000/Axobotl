@@ -7,13 +7,16 @@ module.exports = {
   callback: async (message, arguments, text, client) => {
     //run command
 
-    const credits_fmatted = await Promise.all(credits.map(
-      async credit => {
+    const credits_fmatted = await Promise.all(
+      credits.map(async (credit) => {
         const user = await client.users.fetch(credit.id);
-        return `<@${credit.id}>|\`${user.tag}\`\n${credit.description}`
-      }
-    ));
-    const credit_fields = credits_fmatted.map(credit => ({name: "\u200B\n", value: credit}));
+        return `<@${credit.id}>|\`${user.tag}\`\n${credit.description}`;
+      })
+    );
+    const credit_fields = credits_fmatted.map((credit) => ({
+      name: "\u200B\n",
+      value: credit,
+    }));
 
     const embed = new Discord.MessageEmbed()
       .setColor("#00a4ff")
