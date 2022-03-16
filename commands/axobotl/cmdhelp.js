@@ -7,7 +7,7 @@ module.exports = {
   callback: (message, arguments, text) => {
     //run command
 
-    const format = command => `\`${command.name}\` | ${command.description}`;
+    const format = (command) => `\`${command.name}\` | ${command.description}`;
 
     prefix = "\u200b";
     prefix = config.prefix;
