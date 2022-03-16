@@ -7,27 +7,14 @@ module.exports = {
   callback: (message, arguments, text) => {
     //run command
 
-    const format = command => `\`${command.name}\` | ${command.description}\n`;
+    const format = command => `\`${command.name}\` | ${command.description}`;
 
     prefix = "\u200b";
     prefix = config.prefix;
-    gencmd = commands.general.map(format);
-    gencmd = gencmd.join(",");
-    gencmd = gencmd.replace(/[,]/g, function ($1) {
-      return $1 === "," ? "" : ",";
-    });
 
-    imgcmd = commands.image.map(format);;
-    imgcmd = imgcmd.join(",");
-    imgcmd = imgcmd.replace(/[,]/g, function ($1) {
-      return $1 === "," ? "" : ",";
-    });
-
-    modcmd = commands.moderation.map(format);;
-    modcmd = modcmd.join(",");
-    modcmd = modcmd.replace(/[,]/g, function ($1) {
-      return $1 === "," ? "" : ",";
-    });
+    gencmd = commands.general.map(format).join("\n");
+    imgcmd = commands.image.map(format).join("\n");
+    modcmd = commands.moderation.map(format).join("\n");
 
     const embed = new Discord.MessageEmbed()
       .setColor("#00a4ff")
