@@ -5,7 +5,7 @@ module.exports = {
   maxArgs: [0],
   callback: (message, arguments, text) => {
     //run command
-    axolotl = Math.floor(Math.random() * 64);
+    axolotl = Math.floor(Math.random() * axolotls.length);
     message.channel.send(axolotls[axolotl]);
   },
 };
