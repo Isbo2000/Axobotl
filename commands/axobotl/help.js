@@ -9,36 +9,27 @@ module.exports = {
     prefix = "\u200b";
     prefix = config.prefix;
     help = [
-      "≽(^ ᗜ ^)≼       |------------------------------------|\n",
-      "     /(          )/< >|      A multi-purpose axolotl bot       |\n",
-      "         (         )               |                   Made by Isbo2000                    |\n",
+      "≽(^ ᗜ ^)≼       |------------------------------------|",
+      "     /(          )/< >|      A multi-purpose axolotl bot       |",
+      "         (         )               |                   Made by Isbo2000                    |",
       "         (        )                |------------------------------------|",
     ];
-    help = help.join(",");
-    help = help.replace(/[,]/g, function ($1) {
-      return $1 === "," ? "" : ",";
-    });
+    help = help.join("\n");
 
     other = [
-      "Type this for the list of commands:\n",
-      "`" + prefix + "commands`\n\n",
-      "Type this to see the credits:\n",
-      "`" + prefix + "credits`\n",
+      "Type this for the list of commands:",
+      "`" + prefix + "commands`\n",
+      "Type this to see the credits:",
+      "`" + prefix + "credits`",
     ];
-    other = other.join(",");
-    other = other.replace(/[,]/g, function ($1) {
-      return $1 === "," ? "" : ",";
-    });
+    other = other.join("\n");
 
     invite = [
-      "Link to invite this bot to your server:\n",
+      "Link to invite this bot to your server:",
       "**[Invite Me!](https://discord.com/api/oauth2/authorize?client_id=881548943132098591&permissions=1374393199687&scope=bot)**",
-      "\n\u200B\n",
+      "\u200B\n",
     ];
-    invite = invite.join(",");
-    invite = invite.replace(/[,]/g, function ($1) {
-      return $1 === "," ? "" : ",";
-    });
+    invite = invite.join("\n");
 
     const embed = new Discord.MessageEmbed()
       .setColor("#00a4ff")
