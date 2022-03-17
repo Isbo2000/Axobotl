@@ -11,19 +11,16 @@ module.exports = {
 
     prefix = config.prefix;
 
-    gencmd = commands.general.map(format).join("\n");
-    imgcmd = commands.image.map(format).join("\n");
-    modcmd = commands.moderation.map(format).join("\n");
+    const fields = commands.map((category) => ({
+      name: `${category.name}:`,
+      value: category.commands.map(format).join("\n"),
+    }));
 
     const embed = new Discord.MessageEmbed()
       .setColor("#00a4ff")
       .setTitle("**Command Menu**")
       .setDescription(`prefix: \`${prefix}\``)
-      .addFields(
-        { name: "General Commands:", value: gencmd },
-        { name: "Image Commands", value: imgcmd },
-        { name: "Moderation Commands:", value: modcmd }
-      )
+      .addFields(fields)
       .setFooter("Axobotl   |   Version: " + config.version);
     message.channel.send({ embeds: [embed] });
   },
