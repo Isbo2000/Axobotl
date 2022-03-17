@@ -1,6 +1,6 @@
 const config = require("../../assets/data/config.json");
 const commands = require("../../assets/help/commands.json");
-const Discord = require("discord.js");
+const embed_gen = require("../../utils/embed.js");
 
 module.exports = {
   commands: ["commands", "command", "cmds", "cmd"],
@@ -9,23 +9,17 @@ module.exports = {
 
     const format = (command) => `\`${command.name}\` | ${command.description}`;
 
-    prefix = "\u200b";
     prefix = config.prefix;
 
-    gencmd = commands.general.map(format).join("\n");
-    imgcmd = commands.image.map(format).join("\n");
-    modcmd = commands.moderation.map(format).join("\n");
+    const fields = commands.map((category) => ({
+      name: `${category.name}:`,
+      value: category.commands.map(format).join("\n"),
+    }));
 
-    const embed = new Discord.MessageEmbed()
-      .setColor("#00a4ff")
+    const embed = embed_gen
+      .embed()
       .setTitle("**Command Menu**")
-      .setDescription("`" + prefix + "` (is the bot's prefix)\n\u200B")
-      .addFields(
-        { name: "General Commands:", value: gencmd },
-        { name: "\u200B\nImage Commands", value: imgcmd },
-        { name: "\u200B\nModeration Commands:", value: modcmd }
-      )
-      .setFooter("Axobotl   |   Version: " + config.version);
+      .addFields(fields);
     message.channel.send({ embeds: [embed] });
   },
 };

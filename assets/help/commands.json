@@ -1,64 +1,73 @@
-{
-  "general": [
-    {
-      "name": "frawg",
-      "description": "sends a random frog image"
-    },
-    {
-      "name": "axolotl",
-      "description": "sends a random image of an axolotl"
-    },
-    {
-      "name": "updown",
-      "description": "sends the text back, but upsidedown"
-    },
-    {
-      "name": "habr",
-      "description": "sends 'HAHA <word> go BRRRRRRRRRRRRRRRRRR'"
-    },
-    {
-      "name": "nom <user/thing>",
-      "description": "eats the user or thing"
-    },
-    {
-      "name": "coin",
-      "description": "flips an axolotl coin"
-    }
-  ],
-  "image": [
-    {
-      "name": "suntzu <text>",
-      "description": "makes a fake Sun Tzu quote"
-    },
-    {
-      "name": "larry <text>",
-      "description": "sends larry [ask a question?]"
-    },
-    {
-      "name": "text <text>",
-      "description": "sends what you say as an image"
-    },
-    {
-      "name": "crttv <image/user>",
-      "description": "sends image on CRTTV"
-    }
-  ],
-  "moderation": [
-    {
-      "name": "clear",
-      "description": "clears the last 49 messages (yes its exactly 49)"
-    },
-    {
-      "name": "kick <user> <reason>",
-      "description": "kicks the specified user from the server"
-    },
-    {
-      "name": "ban <user> <reason>",
-      "description": "bans the specified user from the server"
-    },
-    {
-      "name": "unban <userID>",
-      "description": "unbans the user specified from their user ID"
-    }
-  ]
-}
+[
+  {
+    "name": "General Commands",
+    "commands": [
+      {
+        "name": "frawg",
+        "description": "sends a random frog image"
+      },
+      {
+        "name": "axolotl",
+        "description": "sends a random image of an axolotl"
+      },
+      {
+        "name": "updown",
+        "description": "sends the text back, but upsidedown"
+      },
+      {
+        "name": "habr",
+        "description": "sends 'HAHA <word> go BRRRRRRRRRRRRRRRRRR'"
+      },
+      {
+        "name": "nom <user/thing>",
+        "description": "eats the user or thing"
+      },
+      {
+        "name": "coin",
+        "description": "flips an axolotl coin"
+      }
+    ]
+  },
+  {
+    "name": "Image Commands",
+    "commands": [
+      {
+        "name": "suntzu <text>",
+        "description": "makes a fake Sun Tzu quote"
+      },
+      {
+        "name": "larry <text>",
+        "description": "sends larry [ask a question?]"
+      },
+      {
+        "name": "text <text>",
+        "description": "sends what you say as an image"
+      },
+      {
+        "name": "crttv <image/user>",
+        "description": "sends image on CRTTV"
+      }
+    ]
+  },
+  {
+    "name": "Moderation Commands",
+    "commands": [
+      {
+        "name": "clear",
+        "description": "clears the last 49 messages (yes its exactly 49)"
+      },
+      {
+        "name": "kick <user> <reason>",
+        "description": "kicks the specified user from the server"
+      },
+      {
+        "name": "ban <user> <reason>",
+        "description": "bans the specified user from the server"
+      },
+      {
+        "name": "unban <userID>",
+        "description": "unbans the user specified from their user ID"
+      }
+    ]
+  }
+]
