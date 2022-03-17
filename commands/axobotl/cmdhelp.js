@@ -9,7 +9,6 @@ module.exports = {
 
     const format = (command) => `\`${command.name}\` | ${command.description}`;
 
-    prefix = "\u200b";
     prefix = config.prefix;
 
     gencmd = commands.general.map(format).join("\n");
@@ -19,11 +18,11 @@ module.exports = {
     const embed = new Discord.MessageEmbed()
       .setColor("#00a4ff")
       .setTitle("**Command Menu**")
-      .setDescription("`" + prefix + "` (is the bot's prefix)\n\u200B")
+      .setDescription(`prefix: \`${prefix}\``)
       .addFields(
         { name: "General Commands:", value: gencmd },
-        { name: "\u200B\nImage Commands", value: imgcmd },
-        { name: "\u200B\nModeration Commands:", value: modcmd }
+        { name: "Image Commands", value: imgcmd },
+        { name: "Moderation Commands:", value: modcmd }
       )
       .setFooter("Axobotl   |   Version: " + config.version);
     message.channel.send({ embeds: [embed] });
