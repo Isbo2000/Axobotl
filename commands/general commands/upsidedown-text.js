@@ -16,9 +16,9 @@ module.exports = {
     let result = reverseArray
       .map((character) => (mapping[character] ? mapping[character] : character))
       .join("");
-    result = result.replace("@everyone", "@еveryone"); // The first "e" here is a cyryllic letter; this prevents actually mentioning anyone
-    result = result.replace("@here", "@hеre"); // Same here. They look identical but actually aren't
-    result = result.replace("<@", "<\u200B@"); // To prevent mentioning unmentionable roles if the bot has admin
+    result = result.replaceAll("@everyone", "@еveryone"); // The first "e" here is a cyryllic letter; this prevents actually mentioning anyone
+    result = result.replaceAll("@here", "@hеre"); // Same here. They look identical but actually aren't
+    result = result.replaceAll("<@", "<\u200B@"); // To prevent mentioning unmentionable roles if the bot has admin
     message.channel.send(result);
   },
 };
