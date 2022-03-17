@@ -1,6 +1,6 @@
 const config = require("../../assets/data/config.json");
 const credits = require("../../assets/help/credits.json");
-const Discord = require("discord.js");
+const embed_gen = require("../../utils/embed.js");
 
 module.exports = {
   commands: ["credits", "credit", "creds", "cred"],
@@ -18,12 +18,10 @@ module.exports = {
       value: credit,
     }));
 
-    const embed = new Discord.MessageEmbed()
-      .setColor("#00a4ff")
+    const embed = embed_gen
+      .embed()
       .setTitle("**Credits**")
-      .setDescription("`" + config.prefix + "` (is the bot's prefix)")
-      .addFields(credit_fields)
-      .setFooter("Axobotl   |   Version: " + config.version);
+      .addFields(credit_fields);
     message.channel.send({ embeds: [embed] });
   },
 };

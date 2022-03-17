@@ -1,5 +1,5 @@
 const config = require("../../assets/data/config.json");
-const Discord = require("discord.js");
+const embed_gen = require("../../utils/embed.js");
 
 module.exports = {
   commands: ["help", "help menu", "menu"],
@@ -31,16 +31,14 @@ module.exports = {
     ];
     invite = invite.join("\n");
 
-    const embed = new Discord.MessageEmbed()
-      .setColor("#00a4ff")
+    const embed = embed_gen
+      .embed()
       .setTitle("**Help Menu**")
-      .setDescription("`" + prefix + "` (is the bot's prefix)\n")
       .addFields(
         { name: "\u200B", value: help },
         { name: "\u200B\nHelp:", value: other },
         { name: "\u200B\nInvite:", value: invite }
-      )
-      .setFooter("Axobotl   |   Version: " + config.version);
+      );
     message.channel.send({ embeds: [embed] });
   },
 };

@@ -1,6 +1,6 @@
 const config = require("../../assets/data/config.json");
 const commands = require("../../assets/help/commands.json");
-const Discord = require("discord.js");
+const embed_gen = require("../../utils/embed.js");
 
 module.exports = {
   commands: ["commands", "command", "cmds", "cmd"],
@@ -16,12 +16,10 @@ module.exports = {
       value: category.commands.map(format).join("\n"),
     }));
 
-    const embed = new Discord.MessageEmbed()
-      .setColor("#00a4ff")
+    const embed = embed_gen
+      .embed()
       .setTitle("**Command Menu**")
-      .setDescription(`prefix: \`${prefix}\``)
-      .addFields(fields)
-      .setFooter("Axobotl   |   Version: " + config.version);
+      .addFields(fields);
     message.channel.send({ embeds: [embed] });
   },
 };
