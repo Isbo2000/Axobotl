@@ -1,0 +1,18 @@
+{
+  "graphic": [
+    "≽(^ ᗜ ^)≼       |------------------------------------|",
+    "     /(          )/< >|      A multi-purpose axolotl bot       |",
+    "         (         )               |                   Made by Isbo2000                    |",
+    "         (        )                |------------------------------------|"
+  ],
+  "commands": [
+    {
+      "command": "commands",
+      "description": "Type this for the list of commands"
+    },
+    {
+      "command": "credits",
+      "description": "Type this to see the credits"
+    }
+  ]
+}
