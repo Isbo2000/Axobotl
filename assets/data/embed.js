@@ -7,5 +7,5 @@ module.exports = {
     new Discord.MessageEmbed()
       .setColor("#00a4ff")
       .setDescription(`prefix: \`${config.prefix}\``)
-      .EmbedFooterData("Axobotl   |   Version: " + config.version),
+      .setFooter("Axobotl   |   Version: " + config.version),
 };
