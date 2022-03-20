@@ -3,7 +3,7 @@ const Canvas = require("canvas");
 
 module.exports = {
   commands: ["text"],
-  expectedArgs: [],
+  expectedArgs: ["<text>"],
   minArgs: [1],
   callback: async (message, arguments, text) => {
     //run command
