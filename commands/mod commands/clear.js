@@ -17,6 +17,7 @@ module.exports = {
             message.channel.send(
               "Cannot clear, as there are messages older than 2 weeks"
             );
+            return
           }
         });
         message.channel.send(num+" messages successfully deleted")
