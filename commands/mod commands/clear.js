@@ -18,8 +18,8 @@ module.exports = {
               "Cannot clear, as there are messages older than 2 weeks"
             );
           }
-          message.reply(num+" messages successfully deleted")
         });
+        message.reply(num+" messages successfully deleted")
       } else {
         message.reply("Please specify a valid number of messages");
       }
