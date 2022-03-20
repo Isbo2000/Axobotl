@@ -19,7 +19,7 @@ module.exports = {
             );
           }
         });
-        message.reply(num+" messages successfully deleted")
+        await message.reply(num+" messages successfully deleted")
       } else {
         message.reply("Please specify a valid number of messages");
       }
