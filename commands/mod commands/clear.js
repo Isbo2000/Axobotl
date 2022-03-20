@@ -8,9 +8,10 @@ module.exports = {
     
     num = parseInt(text)
     
-    if (isNaN("|"+num+"|")) {
-      message.delete()
+    if (isNaN(num)) {
+      Math.abs(num)
       if (num > 0 && num < 101) {
+        message.delete()
         message.channel.bulkDelete(num).catch((error) => {
           if (error.code == !10008) {
             message.reply(
