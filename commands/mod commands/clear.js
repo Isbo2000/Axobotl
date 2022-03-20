@@ -11,13 +11,13 @@ module.exports = {
     if (isNaN("|"+num+"|")) {
       message.delete()
       if (num > 0 && num < 101) {
-        message.channel.bulkDelete(text).catch((error) => {
-          if (error.code == 10008) {
+        message.channel.bulkDelete(num).catch((error) => {
+          if (error.code == !10008) {
             message.reply(
               "Cannot clear, as there are messages older than 2 weeks"
             );
           }
-          message.channel.send(text+" messages successfully deleted")
+          message.channel.send(num+" messages successfully deleted")
         });
       } else {
         message.reply("Please specify a valid number of messages");
