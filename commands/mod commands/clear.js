@@ -3,7 +3,7 @@ module.exports = {
   expectedArgs: ["<number of messages>"],
   minArgs: [1],
   maxArgs: [1],
-  callback: (message, arguments, text) => {
+  callback: async (message, arguments, text) => {
     //run command
     
     num = parseInt(text)
@@ -11,14 +11,14 @@ module.exports = {
     if (!isNaN(num)) {
       Math.abs(num)
       if (num > 0 && num < 101) {
-        message.channel.bulkDelete(num).catch((error) => {
+        await message.delete()
+        await message.channel.bulkDelete(num).catch((error) => {
           if (error.code == !10008) {
             message.reply(
               "Cannot clear, as there are messages older than 2 weeks"
             );
           }
-          message.delete()
-          message.channel.send(num+" messages successfully deleted")
+          message.reply(num+" messages successfully deleted")
         });
       } else {
         message.reply("Please specify a valid number of messages");
