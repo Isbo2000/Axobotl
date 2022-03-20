@@ -8,7 +8,7 @@ module.exports = {
 
     if (isNaN("|" + text + "|")) {
       text++;
-      if (text > 0 && text < 101) {
+      if (text > 0 && text < 102) {
         message.channel.bulkDelete(text).catch((error) => {
           if (error.code !== 10008) {
             message.reply(
