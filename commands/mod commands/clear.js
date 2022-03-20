@@ -5,21 +5,19 @@ module.exports = {
   maxArgs: [1],
   callback: (message, arguments, text) => {
     //run command
+    
+    num = parseInt(text)
 
-    if (isNaN("|" + text + "|")) {
-      message.delete()
-      if (text > 0 && text < 101) {
-        message.channel.bulkDelete(text).catch((error) => {
-          if (error.code == 10008) {
-            message.reply(
-              "Cannot clear, as there are messages older than 2 weeks"
-            );
-          }
-          message.channel.send(text+" messages successfully deleted")
-        });
-      } else {
-        message.reply("Please specify a valid number of messages");
-      }
+    message.delete()
+    if (num > 0 && num < 101) {
+      message.channel.bulkDelete(text).catch((error) => {
+        if (error.code == 10008) {
+          message.reply(
+            "Cannot clear, as there are messages older than 2 weeks"
+          );
+        }
+        message.channel.send(text+" messages successfully deleted")
+      });
     } else {
       message.reply("Please specify a valid number of messages");
     }
