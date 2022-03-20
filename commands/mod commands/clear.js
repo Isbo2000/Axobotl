@@ -12,7 +12,7 @@ module.exports = {
       Math.abs(num)
       if (num > 0 && num < 101) {
         await message.delete()
-        await message.channel.bulkDelete(num).catch((error) => {
+        message.channel.bulkDelete(num).catch((error) => {
           if (error.code == !10008) {
             message.channel.send(
               "Cannot clear, as there are messages older than 2 weeks"
