@@ -8,7 +8,7 @@ module.exports = {
     
     num = parseInt(text)
     
-    if (isNaN(num)) {
+    if (!isNaN(num)) {
       Math.abs(num)
       if (num > 0 && num < 101) {
         message.delete()
