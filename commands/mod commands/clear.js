@@ -1,18 +1,27 @@
 module.exports = {
   commands: ["clear", "clearmessages", "clearmsg"],
-  minArgs: [0],
-  maxArgs: [0],
+  expectedArgs: ["<number of messages>"],
+  minArgs: [1],
+  maxArgs: [1],
   callback: (message, arguments, text) => {
     //run command
-    message.channel.messages.fetch().then((results) => {
-      message.channel.bulkDelete(results).catch((error) => {
-        if (error.code !== 10008) {
-          message.reply(
-            "Cannot clear, as there are messages older than 2 weeks"
-          );
-        }
-      });
-    });
+
+    if (isNaN("|" + text + "|")) {
+      text++;
+      if (text > 0 && text < 101) {
+        message.channel.bulkDelete(text).catch((error) => {
+          if (error.code !== 10008) {
+            message.reply(
+              "Cannot clear, as there are messages older than 2 weeks"
+            );
+          }
+        });
+      } else {
+        message.reply("Please specify a valid number of messages");
+      }
+    } else {
+      message.reply("Please specify a valid number of messages");
+    }
   },
   permissions: ["MANAGE_MESSAGES"],
 };

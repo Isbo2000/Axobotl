@@ -54,7 +54,7 @@
     "commands": [
       {
         "name": "clear",
-        "description": "clears the last 49 messages (yes its exactly 49)"
+        "description": "clears the specified amount of messages"
       },
       {
         "name": "kick <user> <reason>",
