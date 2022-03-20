@@ -1,21 +1,20 @@
 {
   "name": "axobotl",
-  "version": "4.0.1",
+  "version": "4.1.0",
   "description": "A multipurpose axolotl discord bot.",
   "main": "Index.js",
   "scripts": {
     "prepare": "husky install",
-    "test": "echo \"Error: no test specified\" && exit 1",
     "start": "node Index.js",
-    "format": "prettier --write",
-    "check-for-token": "node management/check-for-token.js"
+    "format": "prettier --write"
   },
   "author": "Isbo2000",
   "license": "ISC",
   "dependencies": {
     "canvas": "^2.9.0",
     "discord.js": "^13.6.0",
-    "markov-text-generator": "^1.0.2"
+    "markov-text-generator": "^1.0.2",
+    "readline-sync": "^1.4.10"
   },
   "devDependencies": {
     "husky": "^7.0.4",
@@ -24,7 +23,6 @@
   },
   "lint-staged": {
     "*.{js,css,md}": [
-      "npm run check-for-token",
       "npm run format"
     ]
   }

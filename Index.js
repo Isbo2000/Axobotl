@@ -3,6 +3,8 @@ console.log("|\nInitializing...\n|");
 const path = require("path");
 const fs = require("fs");
 const Discord = require("discord.js");
+const readline = require("readline-sync");
+const config = require("./assets/data/config.json");
 
 const client = new Discord.Client({
   intents: [
@@ -15,7 +17,39 @@ const client = new Discord.Client({
 });
 client.setMaxListeners(0);
 
-const config = require("./assets/data/config.json");
+async function asktoken() {
+  ans = readline.question(
+    "Please enter your token (it is only stored locally): ",
+    {
+      hideEchoBack: true,
+    }
+  );
+  console.log("|");
+  answer = '{"token": "' + ans + '"}';
+  fs.writeFileSync("./assets/data/token.json", answer);
+  try {
+    await client.login(ans);
+  } catch (err) {
+    fs.unlinkSync("./assets/data/token.json");
+    console.error(err);
+    return;
+  }
+}
+console.log("Checking for token...\n|");
+async function checktoken() {
+  if (fs.existsSync("./assets/data/token.json")) {
+    const token = require("./assets/data/token.json");
+    try {
+      await client.login(token.token);
+      console.log("Token found!\n|");
+    } catch (err) {
+      asktoken();
+    }
+  } else {
+    asktoken();
+  }
+}
+checktoken();
 
 client.on("ready", async () => {
   client.user.setActivity("you | " + config.prefix + "help", {
@@ -44,5 +78,3 @@ client.on("ready", async () => {
     `|\n|\nLogged in ${client.user.tag}\n|\n|\nPress 'ctr+c' to quit\n|\n|\nLogs:\n`
   );
 });
-
-client.login(config.token);
