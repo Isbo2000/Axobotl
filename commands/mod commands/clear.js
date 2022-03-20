@@ -11,13 +11,13 @@ module.exports = {
     if (!isNaN(num)) {
       Math.abs(num)
       if (num > 0 && num < 101) {
-        message.delete()
         message.channel.bulkDelete(num).catch((error) => {
           if (error.code == !10008) {
             message.reply(
               "Cannot clear, as there are messages older than 2 weeks"
             );
           }
+          message.delete()
           message.channel.send(num+" messages successfully deleted")
         });
       } else {
