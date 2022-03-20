@@ -14,12 +14,12 @@ module.exports = {
         await message.delete()
         await message.channel.bulkDelete(num).catch((error) => {
           if (error.code == !10008) {
-            message.reply(
+            message.channel.send(
               "Cannot clear, as there are messages older than 2 weeks"
             );
           }
         });
-        await message.reply(num+" messages successfully deleted")
+        message.channel.send(num+" messages successfully deleted")
       } else {
         message.reply("Please specify a valid number of messages");
       }
