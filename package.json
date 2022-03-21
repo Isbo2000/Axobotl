@@ -1,6 +1,6 @@
 {
-  "name": "axobotl",
-  "version": "4.1.0",
+  "name": "Axobotl",
+  "version": "4.1.1",
   "description": "A multipurpose axolotl discord bot.",
   "main": "Index.js",
   "scripts": {
