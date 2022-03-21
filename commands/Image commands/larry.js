@@ -7,73 +7,36 @@ module.exports = {
   callback: async (message, arguments, text) => {
     //run command
     var length = arguments.length;
-    if (length < 15) {
-      selection = quotes[Math.min(length, quotes.length - 1)];
+    lotx = text.toLowerCase();
+
+    selection = [];
+    for (filter of quotes.filters) {
+      if (filter.type == "length") {
+        if (length == filter.length) {
+          selection = filter.selection;
+        }
+      } else if (filter.type == "length range") {
+        if (filter.lengthMin <= length && length <= filter.lengthMax) {
+          selection = filter.selection;
+        }
+      } else if (filter.type == "trigger") {
+        if (filter.triggers.every((trigger) => lotx.includes(trigger))) {
+          selection = filter.selection;
+        }
+      }
+    }
+
+    if (selection.length) {
       ran = Math.floor(Math.random() * selection.length);
       quote = selection[ran];
     } else {
-      quote = "Too long, didnt read";
+      quote = quotes.fallback;
     }
 
-    lotx = text.toLowerCase();
-    if (lotx.includes("who") && lotx.includes("are") && lotx.includes("you")) {
-      quote = "I.. I dont know..";
-    }
-    if (lotx.includes("who") && lotx.includes("am") && lotx.includes("i")) {
+    // This is a very bodgy solution but it works:
+    if (quote === null) {
       user = message.author.username;
       quote = `you are ${user}, smh`;
-    }
-    if (lotx.includes("larry")) {
-      quote = "Larry knows everything...";
-    }
-    if (lotx.includes("sentient")) {
-      quote = "oh.. uhhhhhhhh";
-    }
-    if (
-      lotx.includes("are") &&
-      lotx.includes("you") &&
-      lotx.includes("sentient")
-    ) {
-      ran = Math.floor(Math.random() * 3);
-      if (ran == 0) {
-        quote = "uhm.. uhh.. no..";
-      }
-      if (ran == 1) {
-        quote = "idk what you mean";
-      }
-      if (ran == 2) {
-        quote = "uhhh totally not..";
-      }
-    }
-    if (lotx.includes("is") && lotx.includes("your") && lotx.includes("name")) {
-      quote = "my name is Larry..";
-    }
-    if (lotx.includes("isbo")) {
-      quote = "Who is Isbo?? .. ew";
-    }
-    if (lotx.includes("your") && lotx.includes("creator")) {
-      quote = "Isbo is creator..";
-    }
-    if (lotx.includes("dayfountain")) {
-      quote = "oOoo, I know Day :D";
-    }
-    if (lotx.includes("trans") && lotx.includes("rights")) {
-      ran = Math.floor(Math.random() * 3);
-      if (ran == 0) {
-        quote = "I like trains too!";
-      }
-      if (ran == 1) {
-        quote = "I like trans rights";
-      }
-      if (ran == 2) {
-        quote = "My friend is trans";
-      }
-    }
-    if (lotx.includes("hitler")) {
-      quote = "ew stinky man";
-    }
-    if (lotx.includes("war") && lotx.includes("crimes")) {
-      quote = "mmmm.. warcrimes..";
     }
 
     const applyText = (canvas, quote) => {
