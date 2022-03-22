@@ -1,16 +1,16 @@
-const { MessageAttachment } = require("discord.js");
+import { MessageAttachment } from "discord.js";
 const Canvas = require("canvas");
 const quotes = require("../../assets/larry.json");
 
 module.exports = {
   commands: ["larry", "asklarry"],
-  callback: async (message, arguments, text) => {
+  callback: async (message, args, text) => {
     //run command
-    var length = arguments.length;
-    lotx = text.toLowerCase();
+    var length = args.length;
+    const lotx = text.toLowerCase();
 
-    selection = [];
-    for (filter of quotes.filters) {
+    let selection = [];
+    for (let filter of quotes.filters) {
       if (filter.type == "length") {
         if (length == filter.length) {
           selection = filter.selection;
@@ -26,8 +26,9 @@ module.exports = {
       }
     }
 
+    let quote:string;
     if (selection.length) {
-      ran = Math.floor(Math.random() * selection.length);
+      const ran = Math.floor(Math.random() * selection.length);
       quote = selection[ran];
     } else {
       quote = quotes.fallback;
@@ -35,7 +36,7 @@ module.exports = {
 
     // This is a very bodgy solution but it works:
     if (quote === null) {
-      user = message.author.username;
+      const user = message.author.username;
       quote = `you are ${user}, smh`;
     }
 

@@ -1,11 +1,11 @@
-const { MessageAttachment } = require("discord.js");
+import { MessageAttachment } from "discord.js";
 const Canvas = require("canvas");
 
 module.exports = {
   commands: ["suntzu", "suntzuquote"],
   expectedArgs: ["<text>"],
   minArgs: [1],
-  callback: async (message, arguments, text) => {
+  callback: async (message, args, text) => {
     //run command
     const applyText = (text, maxWidth) => {
       const context = canvas.getContext("2d");

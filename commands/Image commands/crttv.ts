@@ -1,11 +1,11 @@
-const { MessageAttachment } = require("discord.js");
+import { MessageAttachment } from "discord.js";
 const Canvas = require("canvas");
 
 module.exports = {
   commands: ["crttv", "mike", "crtv"],
   expectedArgs: ["<image> or <user>"],
   maxArgs: [1],
-  callback: async (message, arguments, text) => {
+  callback: async (message, args, text) => {
     //run command
     const canvas = Canvas.createCanvas(478, 478);
     const context = canvas.getContext("2d");
