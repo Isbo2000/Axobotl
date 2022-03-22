@@ -1,5 +1,4 @@
-const config = require("../../assets/data/config.json");
-const commands = require("../../assets/help/commands.json");
+import commands from "../../assets/help/commands.json";
 import embed_gen from "../../utils/embed";
 
 module.exports = {

@@ -1,5 +1,5 @@
-const config = require("../../assets/data/config.json");
-const asset = require("../../assets/help/help.json");
+import config from "../../assets/data/config.json";
+import asset from "../../assets/help/help.json";
 import embed_gen from "../../utils/embed";
 
 module.exports = {
@@ -7,12 +7,10 @@ module.exports = {
   callback: (message, args, text) => {
     //run command
 
-    const prefix = config.prefix;
-
     // Help commands
     const commands = asset.commands
       .map(
-        (command) => `${command.description}:\n\`${prefix}${command.command}\``
+        (command) => `${command.description}:\n\`${config.prefix}${command.command}\``
       )
       .join("\n");
 

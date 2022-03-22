@@ -1,5 +1,4 @@
-const config = require("../../assets/data/config.json");
-const credits = require("../../assets/help/credits.json");
+import credits from "../../assets/help/credits.json";
 import embed_gen from "../../utils/embed";
 
 module.exports = {
