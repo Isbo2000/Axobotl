@@ -56,7 +56,7 @@ client.on("ready", async () => {
     type: "WATCHING",
   });
 
-  const baseFile = "command-base.js";
+  const baseFile = "command-base.ts";
   const commandBase = require(`./commands/${baseFile}`);
 
   const readCommands = (dir) => {

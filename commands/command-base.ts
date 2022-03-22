@@ -1,5 +1,5 @@
 const { prefix } = require("../assets/data/config.json");
-const Discord = require("discord.js");
+import Discord from "discord.js";
 
 const validatePermissions = (permissions) => {
   const validPermissions = [
@@ -108,13 +108,13 @@ module.exports = (client, commandOptions) => {
           }
         }
 
-        const arguments = content.split(/[ ]+/);
+        const args = content.split(/[ ]+/);
 
-        arguments.shift();
+        args.shift();
 
         if (
-          arguments.length < minArgs ||
-          (maxArgs !== null && arguments.length > maxArgs)
+          args.length < minArgs ||
+          (maxArgs !== null && args.length > maxArgs)
         ) {
           message.reply(
             `Incorrect syntax! Use ${prefix}${alias} ${expectedArgs}`
@@ -123,7 +123,7 @@ module.exports = (client, commandOptions) => {
           return;
         }
 
-        callback(message, arguments, arguments.join(" "), client);
+        callback(message, args, args.join(" "), client);
 
         return;
       }
