@@ -7,6 +7,7 @@
     "prepare": "husky install",
     "build": "rm -fr build; tsc && cp -r assets build",
     "start": "npm run build && node build/Index.js",
+    "dev": "ts-node Index.ts",
     "format": "prettier --write"
   },
   "author": "Isbo2000",
@@ -21,6 +22,7 @@
     "husky": "^7.0.4",
     "lint-staged": "^12.3.6",
     "prettier": "2.6.0",
+    "ts-node": "^10.7.0",
     "typescript": "^4.6.2"
   },
   "lint-staged": {
