@@ -18,14 +18,14 @@ const client = new Discord.Client({
 client.setMaxListeners(0);
 
 async function asktoken() {
-  ans = readline.question(
+  let ans = readline.question(
     "Please enter your token (it is only stored locally): ",
     {
       hideEchoBack: true,
     }
   );
   console.log("|");
-  answer = '{"token": "' + ans + '"}';
+  let answer = '{"token": "' + ans + '"}';
   fs.writeFileSync("./assets/data/token.json", answer);
   try {
     await client.login(ans);

@@ -1,5 +1,5 @@
 const config = require("../../assets/data/config.json");
-const embed_gen = require("../../assets/data/embed.js");
+const embed_gen = require("../../utils/embed.js");
 const asset = require("../../assets/help/help.json");
 
 module.exports = {
