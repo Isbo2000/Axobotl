@@ -6,7 +6,7 @@
   "scripts": {
     "prepare": "husky install",
     "build": "rm -fr build; tsc && cp -r assets build",
-    "start": "node Index.js",
+    "start": "npm run build && node build/Index.js",
     "format": "prettier --write"
   },
   "author": "Isbo2000",
