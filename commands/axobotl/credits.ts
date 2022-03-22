@@ -1,10 +1,10 @@
 const config = require("../../assets/data/config.json");
 const credits = require("../../assets/help/credits.json");
-const embed_gen = require("../../utils/embed.js");
+import embed_gen from "../../utils/embed";
 
 module.exports = {
   commands: ["credits", "credit", "creds", "cred"],
-  callback: async (message, arguments, text, client) => {
+  callback: async (message, args, text, client) => {
     //run command
 
     const credits_fmatted = await Promise.all(
@@ -18,8 +18,7 @@ module.exports = {
       value: credit,
     }));
 
-    const embed = embed_gen
-      .embed()
+    const embed = embed_gen()
       .setTitle("**Credits**")
       .addFields(credit_fields);
     message.channel.send({ embeds: [embed] });
