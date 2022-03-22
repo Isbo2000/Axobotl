@@ -51,7 +51,7 @@ const validatePermissions = (permissions) => {
   }
 };
 
-module.exports = (client, commandOptions) => {
+export default (client, commandOptions) => {
   let {
     commands,
     expectedArgs = "",

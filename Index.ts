@@ -1,10 +1,12 @@
 console.log("|\nInitializing...\n|");
 
-const path = require("path");
-const fs = require("fs");
-const Discord = require("discord.js");
-const readline = require("readline-sync");
-const config = require("./assets/data/config.json");
+import path from "path";
+import fs from "fs";
+import Discord from "discord.js";
+import readline from "readline-sync";
+import config from "./assets/data/config.json";
+import commandBase from "./commands/command-base";
+const baseFile = "command-base.ts";
 
 const client = new Discord.Client({
   intents: [
@@ -55,9 +57,6 @@ client.on("ready", async () => {
   client.user.setActivity("you | " + config.prefix + "help", {
     type: "WATCHING",
   });
-
-  const baseFile = "command-base.ts";
-  const commandBase = require(`./commands/${baseFile}`);
 
   const readCommands = (dir) => {
     const files = fs.readdirSync(path.join(__dirname, dir));
