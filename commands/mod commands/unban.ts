@@ -3,9 +3,9 @@ module.exports = {
   expectedArgs: ["<userID>"],
   minArgs: [1],
   maxArgs: [1],
-  callback: (message, arguments, text) => {
+  callback: (message, args, text) => {
     //run command
-    let userID = arguments[0];
+    let userID = args[0];
     message.guild.bans.fetch().then((bans) => {
       if (bans.size == 0) return message.reply("There is no banned users");
       let bUser = bans.find((b) => b.user.id == userID);

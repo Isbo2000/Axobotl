@@ -3,10 +3,10 @@ module.exports = {
   expectedArgs: ["<number of messages>"],
   minArgs: [1],
   maxArgs: [1],
-  callback: (message, arguments, text) => {
+  callback: (message, args, text) => {
     //run command
     
-    num = parseInt(text)
+    const num = parseInt(text)
     
     if (!isNaN(num)) {
       Math.abs(num)

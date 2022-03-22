@@ -3,7 +3,7 @@ module.exports = {
   expectedArgs: ["<user> <reason>"],
   minArgs: [1],
   maxArgs: [2],
-  callback: (message, arguments, text) => {
+  callback: (message, args, text) => {
     //run command
     if (!message.mentions.members.first()) {
       message.reply("Please specify a user");
@@ -17,13 +17,13 @@ module.exports = {
       return;
     }
 
-    arguments.shift();
-    if (arguments[0]) {
-      var reason = arguments.join(" ");
+    args.shift();
+    let reason:string;
+    if (args[0]) {
+      reason = args.join(" ");
     } else {
-      var reason = "No reason specified";
+      reason = "No reason specified";
     }
-    //const reason = arguments.join(' ')
 
     target.kick(reason);
 
