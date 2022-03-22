@@ -6,7 +6,6 @@ import Discord from "discord.js";
 import readline from "readline-sync";
 import config from "./assets/data/config.json";
 import commandBase from "./commands/command-base";
-const baseFile = "command-base.ts";
 
 const client = new Discord.Client({
   intents: [
@@ -64,7 +63,7 @@ client.on("ready", async () => {
       const stat = fs.lstatSync(path.join(__dirname, dir, file));
       if (stat.isDirectory()) {
         readCommands(path.join(dir, file));
-      } else if (file !== baseFile) {
+      } else if (!file.startsWith("command-base")) {
         const option = require(path.join(__dirname, dir, file));
         commandBase(client, option);
       }
