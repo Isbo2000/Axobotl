@@ -1,15 +1,13 @@
 // This contains the script for generating an embed and that's it
 const Discord = require("discord.js");
-const config = require("./config.json");
+const config = require("../assets/data/config.json");
 
-footer = {
+const footer = {
   text: "Axobotl   |   Version: " + config.version,
 };
 
-module.exports = {
-  embed: () =>
+export default () =>
     new Discord.MessageEmbed()
       .setColor("#00a4ff")
       .setDescription(`prefix: \`${config.prefix}\``)
-      .setFooter(footer),
-};
+      .setFooter(footer)
