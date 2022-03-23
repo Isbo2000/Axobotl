@@ -1,11 +1,10 @@
 console.log("|\nInitializing...\n|");
 
-import path from "path";
-import fs from "fs";
-import Discord from "discord.js";
-import readline from "readline-sync";
-import config from "./assets/data/config.json";
-import commandBase from "./commands/command-base";
+const path = require("path");
+const fs = require("fs");
+const Discord = require("discord.js");
+const readline = require("readline-sync");
+const config = require("./assets/data/config.json");
 
 const client = new Discord.Client({
   intents: [
@@ -19,14 +18,14 @@ const client = new Discord.Client({
 client.setMaxListeners(0);
 
 async function asktoken() {
-  let ans = readline.question(
+  ans = readline.question(
     "Please enter your token (it is only stored locally): ",
     {
       hideEchoBack: true,
     }
   );
   console.log("|");
-  let answer = '{"token": "' + ans + '"}';
+  answer = '{"token": "' + ans + '"}';
   fs.writeFileSync("./assets/data/token.json", answer);
   try {
     await client.login(ans);
@@ -57,13 +56,16 @@ client.on("ready", async () => {
     type: "WATCHING",
   });
 
+  const baseFile = "command-base.js";
+  const commandBase = require(`./commands/${baseFile}`);
+
   const readCommands = (dir) => {
     const files = fs.readdirSync(path.join(__dirname, dir));
     for (const file of files) {
       const stat = fs.lstatSync(path.join(__dirname, dir, file));
       if (stat.isDirectory()) {
         readCommands(path.join(dir, file));
-      } else if (!file.startsWith("command-base")) {
+      } else if (file !== baseFile) {
         const option = require(path.join(__dirname, dir, file));
         commandBase(client, option);
       }
