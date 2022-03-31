@@ -8,7 +8,6 @@ module.exports = {
   callback: (message, arguments, text) => {
     //run command
     user = message.author.id;
-    console.log(text);
     rando = Math.floor(Math.random() * assets.length);
 
     let result = text;
