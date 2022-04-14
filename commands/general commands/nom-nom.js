@@ -4,7 +4,6 @@ module.exports = {
   commands: ["nom", "eat", "nomnom"],
   expectedArgs: ["<user/thing>"],
   minArgs: [1],
-  maxArgs: [1],
   callback: (message, arguments, text) => {
     //run command
     user = message.author.id;
