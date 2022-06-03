@@ -85,11 +85,14 @@ client.on("ready", async () => {
 
 client.on("messageCreate", (message) => {
   if (message.author.bot) return;
+  if (message.type == "REPLY") return;
   if (message.mentions.has(client.user.id)) {
     if (
       message.content.includes("@here") ||
       message.content.includes("@everyone")
     )
+      return;
+    if (message.content.includes("<@&") && message.content.includes(">"))
       return;
     console.log(`"${client.user.tag}" has been pinged`);
     prefix = config.prefix;

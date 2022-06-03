@@ -3,8 +3,7 @@ const Canvas = require("canvas");
 
 module.exports = {
   commands: ["woah", "woa"],
-  expectedArgs: ["<text and image> or <user>"],
-  maxArgs: [1],
+  expectedArgs: ["<text> and/or <user/image>"],
   callback: async (message, arguments, text) => {
     //run command
     const canvas = Canvas.createCanvas(478, 478);
@@ -15,6 +14,7 @@ module.exports = {
     context.drawImage(background, 0, 0, canvas.width, canvas.height);
 
     let member = message.mentions.users.first();
+    let memberrep = message.mentions.users.first(2)[1];
     if (message.type == "REPLY") {
       const msg = await message.channel.messages.fetch(
         message.reference.messageId
@@ -25,17 +25,11 @@ module.exports = {
         const image = await Canvas.loadImage(link);
         context.drawImage(image, 250, 275, 200, 200);
 
-        if (text) {
-          context.font = "25px sans-serif";
-          context.fillText(text, 20, 30);
-
-          const attachment = new MessageAttachment(
-            canvas.toBuffer(),
-            "woah.png"
-          );
-          message.channel.send({ files: [attachment] });
-        } else {
-          message.reply("No text provided");
+        if (memberrep) {
+          text = text.replace(memberrep, "");
+          if (text == "") {
+            text = memberrep.username;
+          }
         }
       } else {
         message.reply("The message you replied to has no image");
@@ -45,14 +39,11 @@ module.exports = {
       const image = await Canvas.loadImage(link);
       context.drawImage(image, 250, 275, 200, 200);
 
-      if (text) {
-        context.font = "25px sans-serif";
-        context.fillText(text, 20, 30);
-
-        const attachment = new MessageAttachment(canvas.toBuffer(), "woah.png");
-        message.channel.send({ files: [attachment] });
-      } else {
-        message.reply("No text provided");
+      if (member) {
+        text = text.replace(member, "");
+        if (text == "") {
+          text = member.username;
+        }
       }
     } else if (member) {
       if (member.avatar) {
@@ -65,17 +56,20 @@ module.exports = {
         );
         context.drawImage(image, 250, 275, 200, 200);
 
-        context.font = "25px sans-serif";
-        context.fillText(member.username, 20, 30);
-
-        const attachment = new MessageAttachment(canvas.toBuffer(), "woah.png");
-        message.channel.send({ files: [attachment] });
+        text = text.replace(member, "");
+        if (text == "") {
+          text = member.username;
+        }
       } else {
         message.reply("User has no avatar");
       }
-    } else {
-      const attachment = new MessageAttachment(canvas.toBuffer(), "woah.png");
-      message.channel.send({ files: [attachment] });
     }
+    if (text) {
+      context.font = "25px sans-serif";
+      context.fillStyle = "#4c494c";
+      context.fillText(text, 15, 30);
+    }
+    const attachment = new MessageAttachment(canvas.toBuffer(), "woah.png");
+    message.channel.send({ files: [attachment] });
   },
 };
