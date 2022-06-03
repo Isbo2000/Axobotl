@@ -46,6 +46,10 @@
       {
         "name": "crttv <image/user>",
         "description": "sends image on CRTTV"
+      },
+      {
+        "name": "woah <image and text/user>",
+        "description": "sends 'woah reaction meme'"
       }
     ]
   },
