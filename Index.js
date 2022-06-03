@@ -5,6 +5,8 @@ const fs = require("fs");
 const Discord = require("discord.js");
 const readline = require("readline-sync");
 const config = require("./assets/data/config.json");
+const embed_gen = require("./assets/data/embed.js");
+const asset = require("./assets/help/help.json");
 
 const client = new Discord.Client({
   intents: [
@@ -13,7 +15,9 @@ const client = new Discord.Client({
     "GUILD_MEMBERS",
     "GUILD_BANS",
     "GUILD_VOICE_STATES",
+    "DIRECT_MESSAGES",
   ],
+  partials: ["CHANNEL"],
 });
 client.setMaxListeners(0);
 
@@ -77,4 +81,36 @@ client.on("ready", async () => {
   console.log(
     `|\n|\nLogged in ${client.user.tag}\n|\n|\nPress 'ctr+c' to quit\n|\n|\nLogs:\n`
   );
+});
+
+client.on("messageCreate", (message) => {
+  if (message.author.bot) return;
+  if (message.mentions.has(client.user.id)) {
+    if (
+      message.content.includes("@here") ||
+      message.content.includes("@everyone")
+    )
+      return;
+    console.log(`"${client.user.tag}" has been pinged`);
+    prefix = config.prefix;
+    commands = asset.commands
+      .map(
+        (command) => `${command.description}:\n\`${prefix}${command.command}\``
+      )
+      .join("\n");
+    invite_link = `https://discord.com/api/oauth2/authorize?client_id=${config.client}&permissions=${config.permissions}&scope=bot`;
+    invite = `Link to invite this bot to your server:\n**[Invite Me!](${invite_link})**`;
+    const embed = embed_gen
+      .embed()
+      .setTitle("**Help Menu**")
+      .addFields(
+        { name: "\u200B", value: asset.graphic.join("\n") },
+        { name: "Help:", value: commands },
+        { name: "Invite:", value: invite }
+      );
+    message.channel.send({ embeds: [embed] });
+  } else if (message.channel instanceof Discord.DMChannel) {
+    console.log(`"${message.author.username}" sent a DM`);
+    message.reply("DM chatbot comming soon!!!");
+  }
 });

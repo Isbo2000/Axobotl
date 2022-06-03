@@ -1,5 +1,8 @@
 const { prefix } = require("../assets/data/config.json");
 const Discord = require("discord.js");
+const config = require("../assets/data/config.json");
+const embed_gen = require("../assets/data/embed.js");
+const asset = require("../assets/help/help.json");
 
 const validatePermissions = (permissions) => {
   const validPermissions = [
@@ -84,6 +87,7 @@ module.exports = (client, commandOptions) => {
       if (content.toLowerCase().startsWith(`${prefix}${alias.toLowerCase()}`)) {
         //command been ran
         if (message.channel instanceof Discord.DMChannel) return;
+        if (message.author.bot) return;
 
         console.log(`"${commands[0]}" has been run`);
 
