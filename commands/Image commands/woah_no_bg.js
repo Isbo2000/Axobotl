@@ -1,12 +1,40 @@
 const { MessageAttachment } = require("discord.js");
 const Canvas = require("canvas");
 const greenscreen = require("../../assets/data/greenscreen");
+const m2iat = require("../../assets/data/message_to_image_and_text");
 
 function normalize(width, maxWidth, height, maxHeight) {
   scaleW = maxWidth / width;
   scaleH = maxHeight / height;
   scale = Math.min(scaleW, scaleH);
   return [Math.floor(width * scale), Math.floor(height * scale)];
+}
+
+async function draw(image, canvas, context) {
+  // Crops the transparency out of the image and places it in the appropriate spot
+  const [cropped, bound] = greenscreen.crop(image);
+  const [normW, normH] = normalize(cropped.width, 250, cropped.height, 200);
+
+  // We want the subject to be touching the right and/or bottom of the frame
+  // if and only if it did that in the original image
+  let displacementX;
+  if (image.width - bound.right > 3) {
+    // I generously gave it 3 pixels of potential error (it is needed)
+    displacementX = Math.min(350 - Math.floor(normW / 2), canvas.width - normW);
+  } else {
+    displacementX = canvas.width - normW;
+  }
+  let displacementY;
+  if (image.height - bound.bottom > 3) {
+    displacementY = Math.min(
+      370 - Math.floor(normH / 2),
+      canvas.height - normH
+    );
+  } else {
+    displacementY = canvas.height - normH;
+  }
+
+  context.drawImage(cropped, displacementX, displacementY, normW, normH);
 }
 
 module.exports = {
@@ -24,87 +52,20 @@ module.exports = {
     );
     context.drawImage(background, 0, 0, canvas.width, canvas.height);
 
-    async function draw(link) {
-      const image = await Canvas.loadImage(link);
-      greenscreened = await greenscreen.greenscreen(image);
-      const [cropped, bound] = greenscreen.crop(greenscreened);
-      const [normW, normH] = normalize(cropped.width, 250, cropped.height, 200);
-
-      // We want the subject to be touching the right and/or bottom of the frame
-      // if and only if it did that in the original image
-      let displacementX;
-      if (greenscreened.width - bound.right > 3) {
-        // I generously gave it 3 pixels of potential error (it is needed)
-        displacementX = Math.min(
-          350 - Math.floor(normW / 2),
-          canvas.width - normW
-        );
-      } else {
-        displacementX = canvas.width - normW;
+    try {
+      const [image, caption] = await m2iat(message, text);
+      if (image) {
+        const greenscreened = await greenscreen.greenscreen(image);
+        await draw(greenscreened, canvas, context);
       }
-      let displacementY;
-      if (greenscreened.height - bound.bottom > 3) {
-        displacementY = Math.min(
-          370 - Math.floor(normH / 2),
-          canvas.height - normH
-        );
-      } else {
-        displacementY = canvas.height - normH;
+      if (caption) {
+        context.font = "25px sans-serif";
+        context.fillStyle = "#4c494c";
+        context.fillText(caption, 15, 30);
       }
-
-      context.drawImage(cropped, displacementX, displacementY, normW, normH);
-    }
-
-    let member = message.mentions.users.first();
-    let memberrep = message.mentions.users.first(2)[1];
-    if (message.type == "REPLY") {
-      const msg = await message.channel.messages.fetch(
-        message.reference.messageId
-      );
-
-      if (msg.attachments?.size == 1) {
-        await draw(msg.attachments?.first().url);
-
-        if (memberrep) {
-          text = text.replace(memberrep, "");
-          if (text == "") {
-            text = memberrep.username;
-          }
-        }
-      } else {
-        message.reply("The message you replied to has no image");
-      }
-    } else if (message.attachments?.size == 1) {
-      await draw(message.attachments.first()?.url);
-
-      if (member) {
-        text = text.replace(member, "");
-        if (text == "") {
-          text = member.username;
-        }
-      }
-    } else if (member) {
-      if (member.avatar) {
-        await draw(
-          "https://cdn.discordapp.com/avatars/" +
-            member.id +
-            "/" +
-            member.avatar +
-            ".png"
-        );
-
-        text = text.replace(member, "");
-        if (text == "") {
-          text = member.username;
-        }
-      } else {
-        message.reply("User has no avatar");
-      }
-    }
-    if (text) {
-      context.font = "25px sans-serif";
-      context.fillStyle = "#4c494c";
-      context.fillText(text, 15, 30);
+    } catch {
+      message.reply("Failed to load image");
+      return;
     }
     const attachment = new MessageAttachment(canvas.toBuffer(), "woah.png");
     message.channel
