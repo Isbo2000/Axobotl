@@ -138,7 +138,20 @@ module.exports = (client, commandOptions) => {
           return;
         }
 
-        callback(message, arguments, arguments.join(" "), client);
+        callback(message, arguments, arguments.join(" "), client).catch(
+          (err) => {
+            console.error(err);
+            message.channel
+              .send("Command execution failed")
+              .catch((err) => null);
+            /// The reason for the .catch here is that
+            // someone might be stopping the bot from
+            // sending the error message - for example,
+            // with a timeout; this prevents a single
+            // timeout from crashing the bot in all
+            // servers at once etc
+          }
+        );
 
         return;
       }
