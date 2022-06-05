@@ -20,7 +20,12 @@ module.exports = {
     let member = message.mentions.users.first();
     if (message.attachments?.size == 1) {
       var link = message.attachments.first()?.url;
-      const image = await Canvas.loadImage(link);
+      try {
+        const image = await Canvas.loadImage(link);
+      } catch {
+        message.channel.send("Failed to load image");
+        return;
+      }
       context.drawImage(image, 85, 102.5, 255, 200);
 
       var w = canvas.width / 2 - 397 / 2;
@@ -32,13 +37,18 @@ module.exports = {
     } else if (text) {
       if (member) {
         if (member.avatar) {
-          const image = await Canvas.loadImage(
-            "https://cdn.discordapp.com/avatars/" +
-              member.id +
-              "/" +
-              member.avatar +
-              ".png"
-          );
+          try {
+            const image = await Canvas.loadImage(
+              "https://cdn.discordapp.com/avatars/" +
+                member.id +
+                "/" +
+                member.avatar +
+                ".png"
+            );
+          } catch {
+            message.channel.send("Failed to load image");
+            return;
+          }
           context.drawImage(image, 85, 102.5, 255, 200);
 
           var w = canvas.width / 2 - 397 / 2;
@@ -63,7 +73,12 @@ module.exports = {
 
       if (msg.attachments?.size == 1) {
         var link = msg.attachments?.first().url;
-        const image = await Canvas.loadImage(link);
+        try {
+          const image = await Canvas.loadImage(link);
+        } catch {
+          message.channel.send("Failed to load image");
+          return;
+        }
         context.drawImage(image, 85, 102.5, 255, 200);
 
         var w = canvas.width / 2 - 397 / 2;
