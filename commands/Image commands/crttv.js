@@ -22,11 +22,11 @@ module.exports = {
       var link = message.attachments.first()?.url;
       try {
         const image = await Canvas.loadImage(link);
+        context.drawImage(image, 85, 102.5, 255, 200);
       } catch {
         message.channel.send("Failed to load image");
         return;
       }
-      context.drawImage(image, 85, 102.5, 255, 200);
 
       var w = canvas.width / 2 - 397 / 2;
       var h = canvas.height / 2 - 404 / 2;
@@ -45,11 +45,11 @@ module.exports = {
                 member.avatar +
                 ".png"
             );
+            context.drawImage(image, 85, 102.5, 255, 200);
           } catch {
             message.channel.send("Failed to load image");
             return;
           }
-          context.drawImage(image, 85, 102.5, 255, 200);
 
           var w = canvas.width / 2 - 397 / 2;
           var h = canvas.height / 2 - 404 / 2;
@@ -75,11 +75,11 @@ module.exports = {
         var link = msg.attachments?.first().url;
         try {
           const image = await Canvas.loadImage(link);
+          context.drawImage(image, 85, 102.5, 255, 200);
         } catch {
           message.channel.send("Failed to load image");
           return;
         }
-        context.drawImage(image, 85, 102.5, 255, 200);
 
         var w = canvas.width / 2 - 397 / 2;
         var h = canvas.height / 2 - 404 / 2;

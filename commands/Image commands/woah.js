@@ -24,11 +24,11 @@ module.exports = {
         var link = msg.attachments?.first().url;
         try {
           const image = await Canvas.loadImage(link);
+          context.drawImage(image, 250, 275, 200, 200);
         } catch {
           message.channel.send("Failed to load image");
           return;
         }
-        context.drawImage(image, 250, 275, 200, 200);
 
         if (memberrep) {
           text = text.replace(memberrep, "");
@@ -43,11 +43,11 @@ module.exports = {
       var link = message.attachments.first()?.url;
       try {
         const image = await Canvas.loadImage(link);
+        context.drawImage(image, 250, 275, 200, 200);
       } catch {
         message.channel.send("Failed to load image");
         return;
       }
-      context.drawImage(image, 250, 275, 200, 200);
 
       if (member) {
         text = text.replace(member, "");
@@ -65,11 +65,11 @@ module.exports = {
               member.avatar +
               ".png"
           );
+          context.drawImage(image, 250, 275, 200, 200);
         } catch {
           message.channel.send("Failed to load image");
           return;
         }
-        context.drawImage(image, 250, 275, 200, 200);
 
         text = text.replace(member, "");
         if (text == "") {
