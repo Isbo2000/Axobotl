@@ -50,6 +50,10 @@
       {
         "name": "woah <image and text/user>",
         "description": "sends 'woah reaction meme'"
+      },
+      {
+        "name": "woah-bg <image and text/user>",
+        "description": "sends 'woah reaction meme' with the background of the input removed"
       }
     ]
   },
