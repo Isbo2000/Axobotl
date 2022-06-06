@@ -84,7 +84,18 @@ module.exports = (client, commandOptions) => {
     const { member, content, guild } = message;
 
     for (const alias of commands) {
-      if (content.toLowerCase().startsWith(`${prefix}${alias.toLowerCase()}`)) {
+      // The message can either be the command itself
+      // or be the command followed by arguments
+      //
+      // we can't check if the message just begins with the command
+      // because then we have a problem with conflicts
+      // when commands have similar names
+      // For example, running "axowoah-bg" shouldn't trigger
+      // both "woah" and "woah-bg"
+      if (
+        content.toLowerCase().startsWith(`${prefix}${alias.toLowerCase()} `) ||
+        content.toLowerCase() === `${prefix}${alias.toLowerCase()}`
+      ) {
         //command been ran
         if (message.channel instanceof Discord.DMChannel) return;
         if (message.author.bot) return;
