@@ -3,7 +3,7 @@ module.exports = {
   expectedArgs: ["<user> <reason>"],
   minArgs: [1],
   maxArgs: [2],
-  callback: (message, arguments, text) => {
+  callback: async (message, arguments, text) => {
     //run command
     if (!message.mentions.members.first()) {
       message.reply("Please specify a user");

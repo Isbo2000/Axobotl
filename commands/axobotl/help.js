@@ -4,7 +4,7 @@ const asset = require("../../assets/help/help.json");
 
 module.exports = {
   commands: ["help", "help menu", "menu"],
-  callback: (message, arguments, text) => {
+  callback: async (message, arguments, text) => {
     //run command
 
     prefix = config.prefix;

@@ -3,15 +3,22 @@ module.exports = {
   expectedArgs: ["<number of messages>"],
   minArgs: [1],
   maxArgs: [1],
-  callback: (message, arguments, text) => {
+  callback: async (message, arguments, text) => {
     //run command
-    
-    num = parseInt(text)
-    
+
+    num = parseInt(text);
+
     if (!isNaN(num)) {
-      Math.abs(num)
+      Math.abs(num);
       if (num > 0 && num < 101) {
-        message.delete()
+        try {
+          await message.delete();
+        } catch {
+          message.channel.send(
+            "Deleting failed, check if the bot has sufficient permissions"
+          );
+          return;
+        }
         message.channel.bulkDelete(num).catch((error) => {
           if (error.code !== 10008) {
             message.channel.send(

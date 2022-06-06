@@ -4,7 +4,7 @@ const embed_gen = require("../../assets/data/embed.js");
 
 module.exports = {
   commands: ["commands", "command", "cmds", "cmd"],
-  callback: (message, arguments, text) => {
+  callback: async (message, arguments, text) => {
     //run command
 
     const format = (command) => `\`${command.name}\` | ${command.description}`;

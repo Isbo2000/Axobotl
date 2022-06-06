@@ -4,7 +4,7 @@ module.exports = {
   commands: ["nom", "eat", "nomnom"],
   expectedArgs: ["<user/thing>"],
   minArgs: [1],
-  callback: (message, arguments, text) => {
+  callback: async (message, arguments, text) => {
     //run command
     user = message.author.id;
     rando = Math.floor(Math.random() * assets.length);

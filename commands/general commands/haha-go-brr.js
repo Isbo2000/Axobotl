@@ -3,7 +3,7 @@ module.exports = {
   expectedArgs: ["<word>"],
   minArgs: [1],
   maxArgs: [1],
-  callback: (message, arguments, text) => {
+  callback: async (message, arguments, text) => {
     //run command
     text = text.replaceAll("@everyone", "@еveryone"); // The first "e" here is a cyryllic letter; this prevents actually mentioning anyone
     text = text.replaceAll("@here", "@hеre"); // Same here. They look identical but actually aren't

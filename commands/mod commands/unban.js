@@ -3,7 +3,7 @@ module.exports = {
   expectedArgs: ["<userID>"],
   minArgs: [1],
   maxArgs: [1],
-  callback: (message, arguments, text) => {
+  callback: async (message, arguments, text) => {
     //run command
     let userID = arguments[0];
     message.guild.bans.fetch().then((bans) => {

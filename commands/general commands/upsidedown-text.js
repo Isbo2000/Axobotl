@@ -7,7 +7,7 @@ module.exports = {
   commands: ["updown", "upsidedown"],
   expectedArgs: ["<text>"],
   minArgs: [1],
-  callback: (message, arguments, text) => {
+  callback: async (message, arguments, text) => {
     //run command
     hi = text;
     text = hi;
