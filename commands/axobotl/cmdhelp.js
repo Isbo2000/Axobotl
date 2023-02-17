@@ -7,7 +7,8 @@ module.exports = {
   callback: async (message, arguments, text) => {
     //run command
 
-    const format = (command) => `\`${command.name}\` | ${command.description}`;
+    const format = (command) =>
+      `\`${config.prefix}${command.name}\` | ${command.description}`;
 
     prefix = config.prefix;
 
