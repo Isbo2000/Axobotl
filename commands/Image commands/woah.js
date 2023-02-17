@@ -1,6 +1,6 @@
 const { MessageAttachment } = require("discord.js");
 const Canvas = require("canvas");
-const m2iat = require("../../assets/data/message_to_image_and_text");
+const m2iat = require("../../modules/message_to_image_and_text");
 
 module.exports = {
   commands: ["woah", "woa"],

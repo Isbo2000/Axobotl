@@ -1,7 +1,7 @@
 const { MessageAttachment } = require("discord.js");
 const Canvas = require("canvas");
-const greenscreen = require("../../assets/data/greenscreen");
-const m2iat = require("../../assets/data/message_to_image_and_text");
+const greenscreen = require("../../modules/greenscreen");
+const m2iat = require("../../modules/message_to_image_and_text");
 
 function normalize(width, maxWidth, height, maxHeight) {
   scaleW = maxWidth / width;
