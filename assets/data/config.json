@@ -1,7 +1,9 @@
 {
   "prefix": "axo",
 
-  "version": "4.3.0",
+  "version": "4.3.1",
+
+  "activity": ["WATCHING","you | "],
 
   "client": "881548943132098591",
 

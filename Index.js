@@ -39,13 +39,13 @@ async function asktoken() {
     return;
   }
 }
-console.log("Checking for token...\n|");
+console.log("|\nChecking for token...");
 async function checktoken() {
   if (fs.existsSync("./assets/data/token.json")) {
     const token = require("./assets/data/token.json");
     try {
       await client.login(token.token);
-      console.log("Token found!\n|");
+      console.log("|\nToken found!");
     } catch (err) {
       asktoken();
     }
@@ -56,9 +56,13 @@ async function checktoken() {
 checktoken();
 
 client.on("ready", async () => {
-  client.user.setActivity("you | " + config.prefix + "help", {
-    type: "WATCHING",
+  console.log(`|\nLogged in ${client.user.tag}`);
+  client.user.setActivity(config.activity[1] + config.prefix + "help", {
+    type: config.activity[0],
   });
+  console.log(
+    `|\nStatus set to: ${config.activity[0]} ${config.activity[1]}${config.prefix}help\n|\n|`
+  );
 
   const baseFile = "command-base.js";
   const commandBase = require(`./commands/${baseFile}`);
@@ -78,42 +82,20 @@ client.on("ready", async () => {
 
   readCommands("commands");
 
-  console.log(
-    `|\n|\nLogged in ${client.user.tag}\n|\n|\nPress 'ctr+c' to quit\n|\n|\nLogs:\n`
-  );
+  console.log(`|\n|\nPress 'ctr+c' to quit\n|\n|\nLogs:\n`);
+
+  //const guilds = client.guilds.cache.map(guild => guild);
+  //guilds.forEach(async guild => {
+  //    const owner = await guild.fetchOwner();
+  //    console.log(`Guild Name: ${guild.name}\n Owner: ${owner.user.tag}\n  Total Members: ${guild.memberCount}\n\n`)
+  //});
 });
 
-client.on("messageCreate", (message) => {
-  if (message.author.bot) return;
-  if (message.type == "REPLY") return;
-  if (message.mentions.has(client.user.id)) {
-    if (
-      message.content.includes("@here") ||
-      message.content.includes("@everyone")
-    )
-      return;
-    if (message.content.includes("<@&") && message.content.includes(">"))
-      return;
-    console.log(`"${client.user.tag}" has been pinged`);
-    prefix = config.prefix;
-    commands = asset.commands
-      .map(
-        (command) => `${command.description}:\n\`${prefix}${command.command}\``
-      )
-      .join("\n");
-    invite_link = `https://discord.com/api/oauth2/authorize?client_id=${config.client}&permissions=${config.permissions}&scope=bot`;
-    invite = `Link to invite this bot to your server:\n**[Invite Me!](${invite_link})**`;
-    const embed = embed_gen
-      .embed()
-      .setTitle("**Help Menu**")
-      .addFields(
-        { name: "\u200B", value: asset.graphic.join("\n") },
-        { name: "Help:", value: commands },
-        { name: "Invite:", value: invite }
-      );
-    message.channel.send({ embeds: [embed] });
-  } else if (message.channel instanceof Discord.DMChannel) {
-    console.log(`"${message.author.username}" sent a DM`);
-    message.reply("DM chatbot comming soon!!!");
-  }
+client.on("presenceUpdate", async () => {
+  client.user.setActivity(config.activity[1] + config.prefix + "help", {
+    type: config.activity[0],
+  });
+  console.log(
+    `Status reset to: ${config.activity[0]} ${config.activity[1]}${config.prefix}help`
+  );
 });
