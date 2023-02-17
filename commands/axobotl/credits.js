@@ -1,6 +1,6 @@
 const config = require("../../assets/data/config.json");
 const credits = require("../../assets/help/credits.json");
-const embed_gen = require("../../assets/data/embed.js");
+const embed_gen = require("../../modules/embed.js");
 
 module.exports = {
   commands: ["credits", "credit", "creds", "cred"],

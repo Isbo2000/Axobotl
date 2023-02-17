@@ -1,6 +1,6 @@
 const config = require("../../assets/data/config.json");
 const commands = require("../../assets/help/commands.json");
-const embed_gen = require("../../assets/data/embed.js");
+const embed_gen = require("../../modules/embed.js");
 
 module.exports = {
   commands: ["commands", "command", "cmds", "cmd"],

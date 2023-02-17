@@ -1,12 +1,10 @@
-console.log("|\nInitializing...\n|");
+console.log("|\nInitializing...");
 
 const path = require("path");
 const fs = require("fs");
 const Discord = require("discord.js");
 const readline = require("readline-sync");
 const config = require("./assets/data/config.json");
-const embed_gen = require("./assets/data/embed.js");
-const asset = require("./assets/help/help.json");
 
 const client = new Discord.Client({
   intents: [

@@ -1,8 +1,5 @@
 const { prefix } = require("../assets/data/config.json");
 const Discord = require("discord.js");
-const config = require("../assets/data/config.json");
-const embed_gen = require("../assets/data/embed.js");
-const asset = require("../assets/help/help.json");
 
 const validatePermissions = (permissions) => {
   const validPermissions = [
