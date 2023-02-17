@@ -1,4 +1,4 @@
-console.log("|\nInitializing...\n|");
+console.log("|\nInitializing...");
 
 const path = require("path");
 const fs = require("fs");
