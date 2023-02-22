@@ -24,7 +24,7 @@ Install the dependencies:
 npm install
 ```
 
-Put your token into when it prompts you (here's a [guide on how to get a token](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token))
+Put your token into when it prompts you (here is a [guide on how to get a token](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token))
 
 Run the bot:
 
