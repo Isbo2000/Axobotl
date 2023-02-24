@@ -1,0 +1,10 @@
+{
+    "version": "5.0.0",
+
+    "activity": {
+        "name": "you | /help",
+        "type": 3
+    },
+
+    "permissions": "277025712198"
+}
