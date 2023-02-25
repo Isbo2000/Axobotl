@@ -24,6 +24,7 @@ def checktoken():
 
 bot = discord.Bot(
     description="\n".join(config["description"]),
+    owner_id=config["owner"],
     intents=discord.Intents.default(),
     activity=discord.Activity(
         name=config["activity"]["name"],
@@ -39,7 +40,42 @@ async def on_ready():
 
 @bot.after_invoke
 async def after_invoke(ctx: discord.ApplicationContext):
-    print(f"{ctx.author} used '/{ctx.command}' in {ctx.guild.name}")
+    if ctx.guild: place = ctx.guild.name
+    else: place = "DMs"
+
+    print(f"{ctx.author} used '/{ctx.command}' in {place}")
+
+@bot.event
+async def on_application_command_error(ctx: discord.ApplicationContext, error: discord.DiscordException):
+    print(f"\nERROR: {error}\n")
+
+    dmlog = await bot.fetch_user(bot.owner_id)
+
+    if ctx.guild: place = ctx.guild.name
+    else: place = "DMs"
+
+    embed = discord.Embed(
+        title="**Error:**",
+        description=f"'/{ctx.command}' error in {place}",
+        color=discord.Color.from_rgb(255,0,0)
+    )
+
+    embed.set_author(
+        name=f"{ctx.author}",
+        url=f"https://www.discord.com/users/{ctx.author.id}/",
+        icon_url=ctx.author.avatar
+    )
+
+    embed.add_field(
+        name="Application Command raised an exception:",
+        value=str(error).replace("Application Command raised an exception:","")
+    )
+
+    embed.set_footer(
+        text=f"{config['name']}   |   Version: {config['version']}"
+    )
+
+    await dmlog.send(embed=embed)
 
 try:
     print("|\nChecking for token...")
@@ -60,8 +96,10 @@ try:
     bot.run(token)
 
 except discord.LoginFailure:
-    print("|\nERROR: Invalid token\n")
+    print("\nERROR: Invalid token\n")
     os.remove('./Assets/token.json')
 
-except BaseException as error:
-    print(f"|\nERROR: {error}\n")
+#except BaseException as error:
+#    print(f"|\nERROR: {error}\n")
+#    dmlog = bot.fetch_user(bot.owner_id)
+#    dmlog.send(str(error))
