@@ -21,12 +21,12 @@ class Commands(commands.Cog):
             description="\n".join(config["description"]),
             color=discord.Color.from_rgb(0,164,255)
         )
-        
+
         for (dirpath, dirnames, filenames) in os.walk("./Commands"):
             if ("__pycache__" in dirpath): continue
             cmds = ""
             for f in filenames:
-                if (f.endswith(".pyc")): break
+                if (not f.endswith(".py")): break
                 command = self.bot.get_command(f.replace(".py",""))
                 cmds = "\n".join([cmds, f"{command.mention} | {command.description}"])
             if (cmds == ""): continue
