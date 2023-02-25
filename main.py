@@ -99,3 +99,6 @@ try:
 except discord.LoginFailure:
     print("\nERROR: Invalid token\n")
     os.remove('./Assets/token.json')
+
+except BaseException as error:
+    print(f"\nERROR: {error}\n")

@@ -7,6 +7,9 @@ import json
 with open('./Assets/config.json') as cfg:
     config = json.load(cfg)
 
+with open('./Assets/Commands/coin.json') as img:
+    images = json.load(img)
+
 class Coin(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
@@ -24,7 +27,7 @@ class Coin(commands.Cog):
                 color=discord.Color.from_rgb(0,164,255)
             )
 
-            heads.set_image(url="https://i.imgur.com/O7JwjS5.png")
+            heads.set_image(url=images['heads'])
 
             heads.set_footer(
                 text=f"{self.bot.user.name}   |   Version: {config['version']}",
@@ -40,7 +43,7 @@ class Coin(commands.Cog):
                 color=discord.Color.from_rgb(0,164,255)
             )
 
-            tails.set_image(url="https://i.imgur.com/KjNZAjk.png")
+            tails.set_image(url=images['tails'])
 
             tails.set_footer(
                 text=f"{self.bot.user.name}   |   Version: {config['version']}",
@@ -55,7 +58,7 @@ class Coin(commands.Cog):
             color=discord.Color.from_rgb(0,164,255)
         )
 
-        flipping.set_image(url="https://i.imgur.com/woPnNga.gif")
+        flipping.set_image(url=images['flipping'])
 
         flipping.set_footer(
             text=f"{self.bot.user.name}   |   Version: {config['version']}",
