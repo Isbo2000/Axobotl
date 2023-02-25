@@ -23,7 +23,7 @@ class Coin(commands.Cog):
         async def heads(message):
             heads = discord.Embed(
                 title="**Heads**",
-                description=f"\n[Invite Me!]({invite})   |   [Join Support Server!]({server})",
+                description=f"[Invite Me!]({invite})   |   [Join Server!]({server})",
                 color=discord.Color.from_rgb(0,164,255)
             )
 
@@ -39,7 +39,7 @@ class Coin(commands.Cog):
         async def tails(message):
             tails = discord.Embed(
                 title="**Tails**",
-                description=f"\n[Invite Me!]({invite})   |   [Join Support Server!]({server})",
+                description=f"[Invite Me!]({invite})   |   [Join Server!]({server})",
                 color=discord.Color.from_rgb(0,164,255)
             )
 
@@ -54,7 +54,7 @@ class Coin(commands.Cog):
 
         flipping = discord.Embed(
             title="***Flipping***",
-            description=f"\n[Invite Me!]({invite})   |   [Join Support Server!]({server})",
+            description=f"[Invite Me!]({invite})   |   [Join Server!]({server})",
             color=discord.Color.from_rgb(0,164,255)
         )
 

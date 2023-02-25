@@ -35,7 +35,7 @@ class Help(commands.Cog):
 
         embed.add_field(
             name="",
-            value=f"\n[Invite Me!]({invite})   |   [Join Support Server!]({server})",
+            value=f"[Invite Me!]({invite})   |   [Join Server!]({server})",
             inline=False
         )
 

@@ -18,7 +18,7 @@ class Brrr(commands.Cog):
 
         embed = discord.Embed(
             title=f"HAHA {text} GO BRRRRRRRRRRRRRRRRRR",
-            description=f"\n[Invite Me!]({invite})   |   [Join Support Server!]({server})",
+            description=f"[Invite Me!]({invite})   |   [Join Server!]({server})",
             color=discord.Color.from_rgb(0,164,255)
         )
 
