@@ -56,7 +56,7 @@ async def on_application_command_error(ctx: discord.ApplicationContext, error: d
 
     embed = discord.Embed(
         title="**Error:**",
-        description=f"'/{ctx.command}' error in {place}",
+        description=f"Command: {ctx.command.mention}\nPlace: {place}",
         color=discord.Color.from_rgb(255,0,0)
     )
 
@@ -72,7 +72,8 @@ async def on_application_command_error(ctx: discord.ApplicationContext, error: d
     )
 
     embed.set_footer(
-        text=f"{config['name']}   |   Version: {config['version']}"
+        text=f"{bot.user.name}   |   Version: {config['version']}",
+        icon_url=bot.user.avatar
     )
 
     await dmlog.send(embed=embed)
@@ -98,8 +99,3 @@ try:
 except discord.LoginFailure:
     print("\nERROR: Invalid token\n")
     os.remove('./Assets/token.json')
-
-#except BaseException as error:
-#    print(f"|\nERROR: {error}\n")
-#    dmlog = bot.fetch_user(bot.owner_id)
-#    dmlog.send(str(error))

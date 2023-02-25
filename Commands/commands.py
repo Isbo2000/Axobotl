@@ -4,29 +4,27 @@ import json
 
 with open('./Assets/config.json') as cfg:
     config = json.load(cfg)
-with open('./Assets/credits.json') as crd:
-    credits = json.load(crd)
 
-class Credits(commands.Cog):
+class Commands(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
-    @discord.slash_command(name="credits",description="View the credits")
-    async def credits(self, ctx: discord.ApplicationContext):
+    @discord.slash_command(name="commands",description="Shows a list of commands")
+    async def commands(self, ctx: discord.ApplicationContext):
 
         invite = f"https://discord.com/api/oauth2/authorize?client_id={self.bot.user.id}&permissions={config['permissions']}&scope=applications.commands%20bot"
         server = f"https://discord.gg/{config['server']}"
 
         embed = discord.Embed(
-            title="**Credits**",
+            title="**Commands**",
             description="\n".join(config["description"]),
             color=discord.Color.from_rgb(0,164,255)
         )
 
-        for credit in credits:
+        for command in self.bot.application_commands:
             embed.add_field(
-                name="\u200B\n",
-                value=f"<@{credit['id']}>|`{await self.bot.fetch_user(credit['id'])}`\n{credit['description']}",
+                name=command.mention,
+                value=command.description,
                 inline=False
             )
         
@@ -44,4 +42,4 @@ class Credits(commands.Cog):
         await ctx.respond(embed=embed)
 
 def setup(bot):
-    bot.add_cog(Credits(bot))
+    bot.add_cog(Commands(bot))
