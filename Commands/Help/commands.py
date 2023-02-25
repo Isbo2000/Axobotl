@@ -1,6 +1,7 @@
 from discord.ext import commands
 import discord
 import json
+import os
 
 with open('./Assets/config.json') as cfg:
     config = json.load(cfg)
@@ -20,11 +21,18 @@ class Commands(commands.Cog):
             description="\n".join(config["description"]),
             color=discord.Color.from_rgb(0,164,255)
         )
-
-        for command in self.bot.application_commands:
+        
+        for (dirpath, dirnames, filenames) in os.walk("./Commands"):
+            if ("__pycache__" in dirpath): continue
+            cmds = ""
+            for f in filenames:
+                if (f.endswith(".pyc")): break
+                command = self.bot.get_command(f.replace(".py",""))
+                cmds = "\n".join([cmds, f"{command.mention} | {command.description}"])
+            if (cmds == ""): continue
             embed.add_field(
-                name=command.mention,
-                value=command.description,
+                name=f"{str(os.path.split(dirpath)[1])}:",
+                value=cmds,
                 inline=False
             )
         

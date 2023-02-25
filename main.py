@@ -83,10 +83,9 @@ try:
     token = checktoken()
 
     print("|")
-    path = ""
     for (dirpath, dirnames, filenames) in os.walk("./Commands"):
-        if path: path = ".".join([path,str(os.path.split(dirpath)[1])])
-        else: path = str(os.path.split(dirpath)[1])
+        if ("__pycache__" in dirpath): continue
+        path = ".".join(["Commands",str(os.path.split(dirpath)[1])])
         for f in filenames:
             if (f.endswith(".pyc")): break
             command = f.replace(".py","")
