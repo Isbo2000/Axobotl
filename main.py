@@ -54,9 +54,26 @@ async def on_application_command_error(ctx: discord.ApplicationContext, error: d
     if ctx.guild: place = ctx.guild.name
     else: place = "DMs"
 
+    options = "**Selected:**"
+    for option in ctx.selected_options if ctx.selected_options else [None]:
+        options = "\n".join([
+            options,
+            f"{option['name']}: `{str(option['value'])}`" if option else "None"
+        ])
+    
+    options = "\n".join([options,"**Not selected:**\n"])
+    for option in ctx.unselected_options if ctx.unselected_options else [None]:
+        options = (
+            ", ".join([options,str(option.name)])
+        ) if option and not options.endswith("\n") else (
+            "".join([options,str(option.name)])
+        ) if option else (
+            "".join([options, "None"])
+        )
+
     embed = discord.Embed(
         title="**Error:**",
-        description=f"Command: {ctx.command.mention}\nPlace: {place}",
+        description=f"**Command:**\n{ctx.command.mention}\n**Place:**\n{place}\n{options}",
         color=discord.Color.from_rgb(255,0,0)
     )
 
@@ -68,7 +85,8 @@ async def on_application_command_error(ctx: discord.ApplicationContext, error: d
 
     embed.add_field(
         name="Application Command raised an exception:",
-        value=str(error).replace("Application Command raised an exception:","")
+        value=str(error).replace("Application Command raised an exception:",""),
+        inline=False
     )
 
     embed.set_footer(
@@ -85,7 +103,8 @@ try:
     print("|")
     for (dirpath, dirnames, filenames) in os.walk("./Commands"):
         if ("__pycache__" in dirpath): continue
-        path = ".".join(["Commands",str(os.path.split(dirpath)[1])])
+        cdirpath = str(os.path.split(dirpath)[1])
+        path = ".".join(["Commands",cdirpath]) if not cdirpath == "Commands" else cdirpath
         for f in filenames:
             if (f.endswith(".pyc")): break
             command = f.replace(".py","")
