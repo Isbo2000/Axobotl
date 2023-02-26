@@ -72,7 +72,7 @@ async def on_application_command_error(ctx: discord.ApplicationContext, error: d
         )
 
     embed = discord.Embed(
-        title="**Error:**",
+        title="**Command Error**",
         description=f"**Command:**\n{ctx.command.mention}\n**Place:**\n{place}\n{options}",
         color=discord.Color.from_rgb(255,0,0)
     )
@@ -84,7 +84,7 @@ async def on_application_command_error(ctx: discord.ApplicationContext, error: d
     )
 
     embed.add_field(
-        name="Application Command raised an exception:",
+        name="Error:",
         value=str(error).replace("Application Command raised an exception:",""),
         inline=False
     )
