@@ -35,7 +35,7 @@ class Nom(commands.Cog):
             icon_url=self.bot.user.avatar
         )
 
-        message = await ctx.respond(embed=embed)
+        await ctx.respond(embed=embed)
 
 
 def setup(bot):
