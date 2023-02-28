@@ -19,7 +19,7 @@ class Embeds:
             title: str,
             description: str = None,
             color: list = config['color'],
-            fields: list = None,
+            fields: list = [],
             image: str = None,
             author: dict = None,
             thumbnail: str = None
@@ -53,7 +53,10 @@ class Embeds:
 
         if description:
             self.description = description
-            fields.append({"name":"","value":f"[Invite Me!]({invite})   |   [Join Server!]({server})"})
+            descript = {"name":"","value":f"[Invite Me!]({invite})   |   [Join Server!]({server})"}
+            if fields:
+                fields.append(descript)
+            else: fields = [descript]
         else:
             self.description = f"[Invite Me!]({invite})   |   [Join Server!]({server})"
         
