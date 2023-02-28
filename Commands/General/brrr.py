@@ -1,10 +1,6 @@
 from discord.ext import commands
 import discord
 import Modules
-import json
-
-with open('./Assets/config.json') as cfg:
-    config = json.load(cfg)
 
 class Brrr(commands.Cog):
     def __init__(self, bot):

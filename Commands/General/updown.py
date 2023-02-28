@@ -3,9 +3,6 @@ import discord
 import Modules
 import json
 
-with open('./Assets/config.json') as cfg:
-    config = json.load(cfg)
-
 with open('./Assets/Commands/updown.json') as cde:
     code = json.load(cde)
 key = {}

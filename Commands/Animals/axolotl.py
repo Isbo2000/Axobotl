@@ -4,9 +4,6 @@ import Modules
 import random
 import json
 
-with open('./Assets/config.json') as cfg:
-    config = json.load(cfg)
-
 with open('./Assets/Commands/axolotl.json') as img:
     images = json.load(img)
 
