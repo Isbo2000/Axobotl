@@ -19,7 +19,7 @@ class Commands(commands.Cog):
         embed = discord.Embed(
             title="**Commands**",
             description="\n".join(config["description"]),
-            color=discord.Color.from_rgb(0,164,255)
+            color=discord.Color.from_rgb(config['color'])
         )
 
         for (dirpath, dirnames, filenames) in os.walk("./Commands"):

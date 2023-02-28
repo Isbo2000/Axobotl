@@ -27,7 +27,7 @@ class Updown(commands.Cog):
         embed = discord.Embed(
             title=f"{result}",
             description=f"[Invite Me!]({invite})   |   [Join Server!]({server})",
-            color=discord.Color.from_rgb(0,164,255)
+            color=discord.Color.from_rgb(config['color'])
         )
 
         embed.set_footer(

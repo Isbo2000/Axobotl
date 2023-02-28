@@ -24,7 +24,7 @@ class Coin(commands.Cog):
             heads = discord.Embed(
                 title="**Heads**",
                 description=f"[Invite Me!]({invite})   |   [Join Server!]({server})",
-                color=discord.Color.from_rgb(0,164,255)
+                color=discord.Color.from_rgb(config['color'])
             )
 
             heads.set_image(url=images['heads'])
@@ -40,7 +40,7 @@ class Coin(commands.Cog):
             tails = discord.Embed(
                 title="**Tails**",
                 description=f"[Invite Me!]({invite})   |   [Join Server!]({server})",
-                color=discord.Color.from_rgb(0,164,255)
+                color=discord.Color.from_rgb(config['color'])
             )
 
             tails.set_image(url=images['tails'])
@@ -55,7 +55,7 @@ class Coin(commands.Cog):
         flipping = discord.Embed(
             title="***Flipping***",
             description=f"[Invite Me!]({invite})   |   [Join Server!]({server})",
-            color=discord.Color.from_rgb(0,164,255)
+            color=discord.Color.from_rgb(config['color'])
         )
 
         flipping.set_image(url=images['flipping'])

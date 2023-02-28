@@ -55,7 +55,7 @@ async def on_application_command_error(ctx: discord.ApplicationContext, error: d
 
         embed = discord.Embed(
             title="This command is on cooldown! :(",
-            description=f"You can use {ctx.command.mention} again <t:{int(str(datetime.datetime.now().timestamp()).split('.')[0]) + int(str(ctx.command.cooldown.get_retry_after()).split('.')[0])}:R>",
+            description=f"You can use {ctx.command.mention} again <t:{str(datetime.datetime.now().timestamp()+ctx.command.cooldown.get_retry_after()).split('.')[0]}:R>",
             color=discord.Color.from_rgb(255,0,0)
         )
 
@@ -108,7 +108,7 @@ async def on_application_command_error(ctx: discord.ApplicationContext, error: d
         )
 
         embed.add_field(
-            name="Error:",
+            name="**Error:**",
             value=str(error).replace("Application Command raised an exception:",""),
             inline=False
         )

@@ -20,7 +20,7 @@ class Credits(commands.Cog):
         embed = discord.Embed(
             title="**Credits**",
             description="\n".join(config["description"]),
-            color=discord.Color.from_rgb(0,164,255)
+            color=discord.Color.from_rgb(config['color'])
         )
 
         for credit in credits:

@@ -25,7 +25,7 @@ class Nom(commands.Cog):
         embed = discord.Embed(
             title=f"**{ctx.author.display_name} nommed on {user.display_name}**",
             description=f"[Invite Me!]({invite})   |   [Join Server!]({server})",
-            color=discord.Color.from_rgb(0,164,255)
+            color=discord.Color.from_rgb(config['color'])
         )
         
         embed.set_image(url=nom)

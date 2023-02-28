@@ -21,7 +21,7 @@ class Help(commands.Cog):
         embed = discord.Embed(
             title="**Help Menu**",
             description="\n".join(config["description"]),
-            color=discord.Color.from_rgb(0,164,255)
+            color=discord.Color.from_rgb(config['color'])
         )
 
         embed.add_field(
