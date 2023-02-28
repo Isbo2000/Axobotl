@@ -22,8 +22,9 @@ class Commands(commands.Cog):
             cmds = ""
             for f in filenames:
                 if (not f.endswith(".py")): break
-                command = self.bot.get_command(f.replace(".py",""))
-                cmds = "\n".join([cmds, f"{command.mention} | {command.description}"])
+                cog = self.bot.get_cog(f.replace(".py","").capitalize())
+                for command in cog.walk_commands():
+                    cmds = "\n".join([cmds, f"{command.mention} | {command.description}"])
             if (cmds == ""): continue
             fields.append({
                 "name": f"{str(os.path.split(dirpath)[1])}:",

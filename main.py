@@ -130,9 +130,11 @@ try:
         path = ".".join(["Commands",cdirpath]) if not cdirpath == "Commands" else cdirpath
         for f in filenames:
             if (f.endswith(".pyc")): break
-            command = f.replace(".py","")
-            bot.load_extension(".".join([path,command]))
-            print(f"Registering command '{command}'")
+            file = f.replace(".py","")
+            bot.load_extension(".".join([path,file]))
+            cog = bot.get_cog(file.capitalize())
+            for command in cog.walk_commands():
+                print(f"Registering command '/{command}'")
 
     print("|\nLogging in...")
     bot.run(token)
