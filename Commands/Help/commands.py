@@ -1,5 +1,6 @@
 from discord.ext import commands
 import discord
+import Modules
 import json
 import os
 
@@ -12,16 +13,10 @@ class Commands(commands.Cog):
     
     @discord.slash_command(name="commands",description="Shows a list of commands")
     async def commands(self, ctx: discord.ApplicationContext):
+        title = "**Commands**"
+        description="\n".join(config["description"])
 
-        invite = f"https://discord.com/api/oauth2/authorize?client_id={self.bot.user.id}&permissions={config['permissions']}&scope=applications.commands%20bot"
-        server = f"https://discord.gg/{config['server']}"
-
-        embed = discord.Embed(
-            title="**Commands**",
-            description="\n".join(config["description"]),
-            color=discord.Color.from_rgb(config['color'])
-        )
-
+        fields = []
         for (dirpath, dirnames, filenames) in os.walk("./Commands"):
             if ("__pycache__" in dirpath): continue
             cmds = ""
@@ -30,24 +25,12 @@ class Commands(commands.Cog):
                 command = self.bot.get_command(f.replace(".py",""))
                 cmds = "\n".join([cmds, f"{command.mention} | {command.description}"])
             if (cmds == ""): continue
-            embed.add_field(
-                name=f"{str(os.path.split(dirpath)[1])}:",
-                value=cmds,
-                inline=False
-            )
+            fields.append({
+                "name": f"{str(os.path.split(dirpath)[1])}:",
+                "value": cmds
+            })
         
-        embed.add_field(
-            name="",
-            value=f"[Invite Me!]({invite})   |   [Join Server!]({server})",
-            inline=False
-        )
-
-        embed.set_footer(
-            text=f"{self.bot.user.name}   |   Version: {config['version']}",
-            icon_url=self.bot.user.avatar
-        )
-
-        await ctx.respond(embed=embed)
+        await Modules.Embeds(self.bot,title=title,fields=fields,description=description).respond(ctx)
 
 def setup(bot):
     bot.add_cog(Commands(bot))

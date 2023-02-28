@@ -3,6 +3,7 @@ print("|\nInitializing...")
 from discord.ext import commands
 import datetime
 import discord
+import Modules
 import pwinput
 import json
 import os
@@ -50,26 +51,25 @@ async def after_invoke(ctx: discord.ApplicationContext):
 @bot.event
 async def on_application_command_error(ctx: discord.ApplicationContext, error: discord.DiscordException):
     if isinstance(error, commands.CommandOnCooldown):
-        invite = f"https://discord.com/api/oauth2/authorize?client_id={bot.user.id}&permissions={config['permissions']}&scope=applications.commands%20bot"
-        server = f"https://discord.gg/{config['server']}"
+        timestamp = str(datetime.datetime.now().timestamp()+ctx.command.cooldown.get_retry_after()).split('.')[0]
 
-        embed = discord.Embed(
-            title="This command is on cooldown! :(",
-            description=f"You can use {ctx.command.mention} again <t:{str(datetime.datetime.now().timestamp()+ctx.command.cooldown.get_retry_after()).split('.')[0]}:R>",
-            color=discord.Color.from_rgb(255,0,0)
-        )
+        title = "This command is on cooldown! :("
+        description = f"You can use {ctx.command.mention} again <t:{timestamp}:R>"
+        color = [255,0,0]
 
-        embed.add_field(
-            name=f"The cooldown is `{str(ctx.command.cooldown.per).split('.')[0]} seconds`",
-            value=f"[Invite Me!]({invite})   |   [Join Server!]({server})"
-        )
+        fields = [{
+            "name": f"The cooldown is `{str(ctx.command.cooldown.per).split('.')[0]} seconds`",
+            "value": ""
+        }]
 
-        embed.set_footer(
-            text=f"{bot.user.name}   |   Version: {config['version']}",
-            icon_url=bot.user.avatar
-        )
+        await Modules.Embeds(
+            bot,
+            title=title,
+            description=description,
+            fields=fields,
+            color=color
+        ).respond(ctx, ephemeral=True)
 
-        await ctx.respond(embed=embed,ephemeral=True)
     else:
         print(f"\nERROR: {error}\n")
 
@@ -95,30 +95,29 @@ async def on_application_command_error(ctx: discord.ApplicationContext, error: d
                 "".join([options, "None"])
             )
 
-        embed = discord.Embed(
-            title="**Command Error**",
-            description=f"**Command:**\n{ctx.command.mention}\n**Place:**\n{place}\n{options}",
-            color=discord.Color.from_rgb(255,0,0)
-        )
+        title = "**Command Error**"
+        description = f"**Command:**\n{ctx.command.mention}\n**Place:**\n{place}\n{options}"
+        color = [255,0,0]
 
-        embed.set_author(
-            name=f"{ctx.author}",
-            url=f"https://www.discord.com/users/{ctx.author.id}/",
-            icon_url=ctx.author.avatar
-        )
+        fields = [{
+            "name": "**Error:**",
+            "value": str(error).replace("Application Command raised an exception:","")
+        }]
 
-        embed.add_field(
-            name="**Error:**",
-            value=str(error).replace("Application Command raised an exception:",""),
-            inline=False
-        )
+        author = {
+            "name": ctx.author,
+            "url": f"https://www.discord.com/users/{ctx.author.id}/",
+            "icon_url": ctx.author.avatar
+        }
 
-        embed.set_footer(
-            text=f"{bot.user.name}   |   Version: {config['version']}",
-            icon_url=bot.user.avatar
-        )
-
-        await dmlog.send(embed=embed)
+        await Modules.Embeds(
+            bot,
+            title=title,
+            description=description,
+            color=color,
+            fields=fields,
+            author=author
+        ).dm(dmlog)
 
 try:
     print("|\nChecking for token...")

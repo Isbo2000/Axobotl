@@ -1,5 +1,6 @@
 from discord.ext import commands
 import discord
+import Modules
 import random
 import json
 
@@ -16,26 +17,10 @@ class Nom(commands.Cog):
     @discord.slash_command(name="nom",description="'Noms' on another user")
     @discord.option(name="user",description="Enter a user to 'nom' on",required=True)
     async def nom(self, ctx: discord.ApplicationContext, user: discord.Member):
+        title = f"**{ctx.author.display_name} nommed on {user.display_name}**"
+        image = random.choice(images)
 
-        invite = f"https://discord.com/api/oauth2/authorize?client_id={self.bot.user.id}&permissions={config['permissions']}&scope=applications.commands%20bot"
-        server = f"https://discord.gg/{config['server']}"
-
-        nom = random.choice(images)
-
-        embed = discord.Embed(
-            title=f"**{ctx.author.display_name} nommed on {user.display_name}**",
-            description=f"[Invite Me!]({invite})   |   [Join Server!]({server})",
-            color=discord.Color.from_rgb(config['color'])
-        )
-        
-        embed.set_image(url=nom)
-
-        embed.set_footer(
-            text=f"{self.bot.user.name}   |   Version: {config['version']}",
-            icon_url=self.bot.user.avatar
-        )
-
-        await ctx.respond(embed=embed)
+        await Modules.Embeds(self.bot,title=title,image=image).respond(ctx)
 
 
 def setup(bot):

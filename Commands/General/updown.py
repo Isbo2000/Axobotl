@@ -1,5 +1,6 @@
 from discord.ext import commands
 import discord
+import Modules
 import json
 
 with open('./Assets/config.json') as cfg:
@@ -18,24 +19,9 @@ class Updown(commands.Cog):
     @discord.slash_command(name="updown",description="Replies with upsidedown text")
     @discord.option(name="text",description="Enter text to turn it upsidedown",required=True)
     async def updown(self, ctx: discord.ApplicationContext, text: str):
-
-        invite = f"https://discord.com/api/oauth2/authorize?client_id={self.bot.user.id}&permissions={config['permissions']}&scope=applications.commands%20bot"
-        server = f"https://discord.gg/{config['server']}"
-
         result = "".join([code[i] if i in code else key[i] if i in key else i for i in text])[::-1]
 
-        embed = discord.Embed(
-            title=f"{result}",
-            description=f"[Invite Me!]({invite})   |   [Join Server!]({server})",
-            color=discord.Color.from_rgb(config['color'])
-        )
-
-        embed.set_footer(
-            text=f"{self.bot.user.name}   |   Version: {config['version']}",
-            icon_url=self.bot.user.avatar
-        )
-
-        await ctx.respond(embed=embed)
+        await Modules.Embeds(self.bot,title=result).respond(ctx)
 
 def setup(bot):
     bot.add_cog(Updown(bot))

@@ -1,5 +1,6 @@
 from discord.ext import commands
 import discord
+import Modules
 import random
 import json
 
@@ -15,27 +16,10 @@ class Frog(commands.Cog):
     
     @discord.slash_command(name="frog",description="Sends a random frog image")
     async def frog(self, ctx: discord.ApplicationContext):
+        title = "**Have a random frog!**"
+        image = random.choice(images)
 
-        invite = f"https://discord.com/api/oauth2/authorize?client_id={self.bot.user.id}&permissions={config['permissions']}&scope=applications.commands%20bot"
-        server = f"https://discord.gg/{config['server']}"
-
-        frog = random.choice(images)
-
-        embed = discord.Embed(
-            title="**Have a random frog!**",
-            description=f"[Invite Me!]({invite})   |   [Join Server!]({server})",
-            color=discord.Color.from_rgb(config['color'])
-        )
-        
-        embed.set_image(url=frog)
-
-        embed.set_footer(
-            text=f"{self.bot.user.name}   |   Version: {config['version']}",
-            icon_url=self.bot.user.avatar
-        )
-
-        await ctx.respond(embed=embed)
-
+        await Modules.Embeds(self.bot,title=title,image=image).respond(ctx)
 
 def setup(bot):
     bot.add_cog(Frog(bot))

@@ -1,5 +1,6 @@
 from discord.ext import commands
 import discord
+import Modules
 import json
 
 with open('./Assets/config.json') as cfg:
@@ -13,35 +14,17 @@ class Credits(commands.Cog):
     
     @discord.slash_command(name="credits",description="View the credits")
     async def credits(self, ctx: discord.ApplicationContext):
+        title = "**Credits**"
+        description = "\n".join(config["description"])
 
-        invite = f"https://discord.com/api/oauth2/authorize?client_id={self.bot.user.id}&permissions={config['permissions']}&scope=applications.commands%20bot"
-        server = f"https://discord.gg/{config['server']}"
-
-        embed = discord.Embed(
-            title="**Credits**",
-            description="\n".join(config["description"]),
-            color=discord.Color.from_rgb(config['color'])
-        )
-
+        fields = []
         for credit in credits:
-            embed.add_field(
-                name="\u200B\n",
-                value=f"<@{credit['id']}>|`{await self.bot.fetch_user(credit['id'])}`\n{credit['description']}",
-                inline=False
-            )
-        
-        embed.add_field(
-            name="",
-            value=f"[Invite Me!]({invite})   |   [Join Server!]({server})",
-            inline=False
-        )
+            fields.append({
+                "name": "\u200B\n",
+                "value": f"<@{credit['id']}>|`{await self.bot.fetch_user(credit['id'])}`\n{credit['description']}"
+            })
 
-        embed.set_footer(
-            text=f"{self.bot.user.name}   |   Version: {config['version']}",
-            icon_url=self.bot.user.avatar
-        )
-
-        await ctx.respond(embed=embed)
+        await Modules.Embeds(self.bot,title=title,fields=fields,description=description).respond(ctx)
 
 def setup(bot):
     bot.add_cog(Credits(bot))
