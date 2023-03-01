@@ -80,7 +80,7 @@ async def on_application_command_error(ctx: discord.ApplicationContext, error: d
             permissions = "\n".join([permissions,permission])
 
         fields = [{
-            "name": "Missing permissions:",
+            "name": "Possible missing permissions:",
             "value": permissions
         }]
 
