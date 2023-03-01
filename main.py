@@ -53,13 +53,35 @@ async def on_application_command_error(ctx: discord.ApplicationContext, error: d
     if isinstance(error, commands.CommandOnCooldown):
         timestamp = str(datetime.datetime.now().timestamp()+ctx.command.cooldown.get_retry_after()).split('.')[0]
 
-        title = "This command is on cooldown! :("
+        title = "This command is on cooldown :("
         description = f"You can use {ctx.command.mention} again <t:{timestamp}:R>"
         color = [255,0,0]
 
         fields = [{
             "name": f"The cooldown is `{str(ctx.command.cooldown.per).split('.')[0]} seconds`",
             "value": ""
+        }]
+
+        await Modules.Embeds(
+            bot,
+            title=title,
+            description=description,
+            fields=fields,
+            color=color
+        ).respond(ctx, ephemeral=True)
+    
+    elif isinstance(error, commands.BotMissingPermissions):
+        title = "Necessary permissions missing :("
+        description = f"The bot does not have the required permissions to run this command\nOR is unable to due to role hierarchy"
+        color = [255,0,0]
+
+        permissions = ""
+        for permission in error.missing_permissions:
+            permissions = "\n".join([permissions,permission])
+
+        fields = [{
+            "name": "Missing permissions:",
+            "value": permissions
         }]
 
         await Modules.Embeds(
