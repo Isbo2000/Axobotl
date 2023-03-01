@@ -7,7 +7,8 @@ class Timeout(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
-    @discord.command(name="timeout",description="Timeout a user (default 10 minutes)")
+    @discord.slash_command(name="timeout",description="Timeout a user (default 10 minutes)")
+    @discord.guild_only()
     @discord.default_permissions(moderate_members=True)
     @discord.option(name="user",description="Enter a user to timeout",required=True)
     @discord.option(name="minutes",description="Enter the amount of minutes to timeout a given user",required=False)
