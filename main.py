@@ -116,9 +116,14 @@ async def on_application_command_error(ctx: discord.ApplicationContext, error: d
             ) if option else (
                 "".join([options, "None"])
             )
+        
+        try:
+            command = ctx.command.mention
+        except AttributeError:
+            command = f"`/{ctx.command.name}`"
 
         title = "**Command Error**"
-        description = f"**Command:**\n{ctx.command.mention}\n**Place:**\n{place}\n{options}"
+        description = f"**Command:**\n{command}\n**Place:**\n{place}\n{options}"
         color = [255,0,0]
 
         fields = [{
