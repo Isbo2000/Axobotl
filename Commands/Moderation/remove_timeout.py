@@ -24,12 +24,14 @@ class Remove_timeout(commands.Cog):
             
             title = f"Removed timeout from {user}"
             description = f"**Reason:** {reason}"
+            color = None
 
         else:
             title = "Unable to remove timeout"
             description = f"{user} is not currently timed out"
+            color = [255,0,0]
 
-        await Modules.Embeds(self.bot,title=title,description=description).respond(ctx,True)
+        await Modules.Embeds(self.bot,title=title,description=description,color=color).respond(ctx,True)
 
 def setup(bot):
     bot.add_cog(Remove_timeout(bot))
