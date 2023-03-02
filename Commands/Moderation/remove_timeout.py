@@ -15,19 +15,21 @@ class Remove_timeout(commands.Cog):
     @discord.option(name="user",description="Enter a user to timeout",required=True)
     @discord.option(name="reason",description="Enter a reason for the timeout",required=False)
     async def timeout(self, ctx: discord.ApplicationContext, user: discord.Member, reason: str = "No reason given"):
-        try:
-            if user.timed_out:
+        if user.timed_out:
+            try:
                 await user.remove_timeout(reason=reason)
-                title = f"Removed timeout from {user}"
-                description = f"**Reason:** {reason}"
-            else:
-                title = "Unable to remove timeout"
-                description = f"{user} is not currently timed out"
+                
+            except discord.Forbidden:
+                raise commands.BotMissingPermissions(missing_permissions=["moderate_members"])
+            
+            title = f"Removed timeout from {user}"
+            description = f"**Reason:** {reason}"
 
-            await Modules.Embeds(self.bot,title=title,description=description).respond(ctx,True)
+        else:
+            title = "Unable to remove timeout"
+            description = f"{user} is not currently timed out"
 
-        except discord.Forbidden:
-            raise commands.BotMissingPermissions(missing_permissions=["moderate_members"])
+        await Modules.Embeds(self.bot,title=title,description=description).respond(ctx,True)
 
 def setup(bot):
     bot.add_cog(Remove_timeout(bot))

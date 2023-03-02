@@ -14,14 +14,14 @@ class Kick(commands.Cog):
     async def kick(self, ctx: discord.ApplicationContext, user: discord.Member, reason: str = "No reason given"):
         try:
             await user.kick(reason=reason)
-
-            title = f"Kicked {user} from the server"
-            description = f"**Reason:** {reason}"
-
-            await Modules.Embeds(self.bot,title=title,description=description).respond(ctx,True)
-            
+        
         except discord.Forbidden:
             raise commands.BotMissingPermissions(missing_permissions=["kick_members"])
+
+        title = f"Kicked {user} from the server"
+        description = f"**Reason:** {reason}"
+
+        await Modules.Embeds(self.bot,title=title,description=description).respond(ctx,True)
 
 def setup(bot):
     bot.add_cog(Kick(bot))

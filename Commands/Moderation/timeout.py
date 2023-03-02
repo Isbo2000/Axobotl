@@ -14,18 +14,18 @@ class Timeout(commands.Cog):
     @discord.option(name="minutes",description="Enter the amount of minutes to timeout a given user",required=False)
     @discord.option(name="reason",description="Enter a reason for the timeout",required=False)
     async def timeout(self, ctx: discord.ApplicationContext, user: discord.Member, minutes: int = 10, reason: str = "No reason given"):
+        duration = datetime.timedelta(minutes=minutes)
+        
         try:
-            duration = datetime.timedelta(minutes=minutes)
-
             await user.timeout_for(duration=duration,reason=reason)
-
-            title = f"Timed out {user} for {minutes} minutes"
-            description = f"**Reason:** {reason}"
-
-            await Modules.Embeds(self.bot,title=title,description=description).respond(ctx,True)
-            
+        
         except discord.Forbidden:
             raise commands.BotMissingPermissions(missing_permissions=["moderate_members"])
 
+        title = f"Timed out {user} for {minutes} minutes"
+        description = f"**Reason:** {reason}"
+
+        await Modules.Embeds(self.bot,title=title,description=description).respond(ctx,True)
+        
 def setup(bot):
     bot.add_cog(Timeout(bot))
