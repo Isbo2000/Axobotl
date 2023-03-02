@@ -41,6 +41,10 @@ class Embeds:
             (optional) "url": str
         }
         """
+
+        if not color:
+            color = config['color']
+            
         self.bot = bot
         self.title = title
         self.color = discord.Color.from_rgb(int(color[0]),int(color[1]),int(color[2]))
