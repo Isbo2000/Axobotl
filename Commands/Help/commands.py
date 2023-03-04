@@ -12,6 +12,7 @@ class Commands(commands.Cog):
         self.bot = bot
     
     @discord.slash_command(name="commands",description="Shows a list of commands")
+    @commands.cooldown(1,config['cooldown'],commands.BucketType.member)
     async def commands(self, ctx: discord.ApplicationContext):
         title = "**Commands**"
         description="\n".join(config["description"])

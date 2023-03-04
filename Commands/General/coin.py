@@ -5,6 +5,9 @@ import Modules
 import random
 import json
 
+with open('./Assets/config.json') as cfg:
+    config = json.load(cfg)
+
 with open('./Assets/Commands/coin.json') as img:
     images = json.load(img)
 
@@ -13,6 +16,7 @@ class Coin(commands.Cog):
         self.bot = bot
     
     @discord.slash_command(name="coin",description="Flips an axolotl coin")
+    @commands.cooldown(1,config['cooldown'],commands.BucketType.member)
     async def coin(self, ctx: discord.ApplicationContext):
         msg = await Modules.Embeds(self.bot,title="***Flipping***",image=images['flipping']).respond(ctx)
 

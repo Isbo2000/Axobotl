@@ -4,6 +4,9 @@ import Modules
 import random
 import json
 
+with open('./Assets/config.json') as cfg:
+    config = json.load(cfg)
+
 with open('./Assets/Commands/frog.json') as img:
     images = json.load(img)
 
@@ -12,6 +15,7 @@ class Frog(commands.Cog):
         self.bot = bot
     
     @discord.slash_command(name="frog",description="Sends a random frog image")
+    @commands.cooldown(1,config['cooldown'],commands.BucketType.member)
     async def frog(self, ctx: discord.ApplicationContext):
         title = "**Have a random frog!**"
         image = random.choice(images)

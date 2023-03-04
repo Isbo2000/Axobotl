@@ -11,6 +11,7 @@ class Help(commands.Cog):
         self.bot = bot
     
     @discord.slash_command(name="help",description="Shows helpful information about the bot")
+    @commands.cooldown(1,config['cooldown'],commands.BucketType.member)
     async def help(self, ctx: discord.ApplicationContext):
         credits = self.bot.get_command('credits')
         cmds = self.bot.get_command('commands')
