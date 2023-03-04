@@ -123,7 +123,11 @@ class Embeds:
         """
         Responds with the created embed object
         """
-        return await ctx.respond(embed=self.embed,ephemeral=ephemeral)
+        try:
+            return await ctx.respond(embed=self.embed,ephemeral=ephemeral)
+
+        except discord.NotFound:
+            return await ctx.channel.send(embed=self.embed,delete_after=10 if ephemeral else None)
     
     async def edit(self, msg: discord.Interaction):
         """
