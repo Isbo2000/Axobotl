@@ -29,9 +29,8 @@ class Purge(commands.Cog):
         
         title = f"Purged {len(deleted)} out of {limit} messages{f' by {user}' if user else ''}"
         description = f"**Reason:** {reason}"
-        color = None
 
-        await Modules.Embeds(self.bot,title=title,description=description,color=color).respond(ctx,True)
+        await Modules.Embeds(self.bot,title=title,description=description).respond(ctx,True)
 
 def setup(bot):
     bot.add_cog(Purge(bot))
