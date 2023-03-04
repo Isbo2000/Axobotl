@@ -1,7 +1,6 @@
 from discord.ext import commands
 import discord
 import Modules
-import time
 
 class Purge(commands.Cog):
     def __init__(self, bot):
@@ -14,6 +13,8 @@ class Purge(commands.Cog):
     @discord.option(name="reason",description="Enter a reason for the bulk delete",required=False)
     @discord.option(name="user",description="Enter a user to delete only their messages",required=False)
     async def purge(self, ctx: discord.ApplicationContext, limit: int, reason: str = "No reason given", user: discord.Member = None):
+        await ctx.defer(ephemeral=True)
+
         def check(msg: discord.Message):
             if user:
                 return msg.author == user
