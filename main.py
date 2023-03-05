@@ -144,7 +144,7 @@ async def on_application_command_error(ctx: discord.ApplicationContext, error: d
             color=color,
             fields=fields,
             author=author
-        ).dm(dmlog)
+        ).send(dmlog)
 
 try:
     print("|\nChecking for token...")
