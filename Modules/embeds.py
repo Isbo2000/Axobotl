@@ -122,7 +122,7 @@ class Embeds:
 
         self.embed = embed
     
-    async def send(self, place: discord.User | discord.TextChannel):
+    async def send(self, place: discord.User or discord.TextChannel):
         """
         Sends the created embed object
         """
