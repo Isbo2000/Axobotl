@@ -8,7 +8,7 @@ class Embeds:
     """
     Embeds(bot: discord.Bot, **args) => discord.Embed()
         .send(
-            user: discord.User | discord.TextChannel
+            user: discord.User or discord.TextChannel
         )
         .respond(
             ctx: discord.ApplicationContext,
@@ -133,7 +133,7 @@ class Embeds:
         Responds with the created embed object
         """
         try:
-            return await ctx.respond(embed=self.embed,ephemeral=ephemeral,file=file)
+            return await ctx.respond(embed=self.embed,ephemeral=ephemeral,file=file if file else None)
 
         except discord.NotFound:
             return await ctx.channel.send(embed=self.embed,delete_after=10 if ephemeral else None)
@@ -142,4 +142,4 @@ class Embeds:
         """
         Edits the sent embed message
         """
-        return await msg.edit_original_response(embed=self.embed,file=file)
+        return await msg.edit_original_response(embed=self.embed,file=file if file else None)
