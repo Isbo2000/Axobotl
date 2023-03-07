@@ -6,7 +6,12 @@ import discord
 import Modules
 import pwinput
 import json
+import sys
 import os
+
+if not sys.version_info >= (3, 10):
+    print("|\nPlease upgrade python to the latest version or at least version 3.10 to run this program!")
+    sys.exit()
 
 with open('./Assets/config.json') as cfg:
     config = json.load(cfg)
