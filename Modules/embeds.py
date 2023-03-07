@@ -8,16 +8,16 @@ class Embeds:
     """
     Embeds(bot: discord.Bot, **args) => discord.Embed()
         .send(
-            user: discord.User or discord.TextChannel
+            user: discord.User | discord.TextChannel
         )
         .respond(
             ctx: discord.ApplicationContext,
             ephemeral: bool = False,
-            file: discord.File = None
+            file: discord.File | None = None
         )
         .edit(
             msg: discord.Interaction,
-            file: discord.File = None
+            file: discord.File | None = None
         )
 
     Create, send, and edit discord embed objects
@@ -26,12 +26,12 @@ class Embeds:
             self,
             bot: discord.Bot,
             title: str = "",
-            description: str = None,
+            description: str | None = None,
             color: list = config['color'],
             fields: list = [],
-            image: str = None,
-            author: dict = None,
-            thumbnail: str = None
+            image: str | None = None,
+            author: dict | None = None,
+            thumbnail: str | None = None
         ):
         """
         Creates a discord embed object
@@ -122,30 +122,24 @@ class Embeds:
 
         self.embed = embed
     
-    async def send(self, place: discord.User or discord.TextChannel):
+    async def send(self, place: discord.User | discord.TextChannel):
         """
         Sends the created embed object
         """
         return await place.send(embed=self.embed)
     
-    async def respond(self, ctx: discord.ApplicationContext, ephemeral: bool = False, file: discord.File = None):
+    async def respond(self, ctx: discord.ApplicationContext, ephemeral: bool = False, file: discord.File | None = None):
         """
         Responds with the created embed object
         """
         try:
-            if file:
-                return await ctx.respond(embed=self.embed,ephemeral=ephemeral,file=file)
-            else:
-                return await ctx.respond(embed=self.embed,ephemeral=ephemeral)
+            return await ctx.respond(embed=self.embed,ephemeral=ephemeral,file=file)
 
         except discord.NotFound:
             return await ctx.channel.send(embed=self.embed,delete_after=10 if ephemeral else None)
     
-    async def edit(self, msg: discord.Interaction, file: discord.File = None):
+    async def edit(self, msg: discord.Interaction, file: discord.File | None = None):
         """
         Edits the sent embed message
         """
-        if file:
-            return await msg.edit_original_response(embed=self.embed,file=file)
-        else:
-            return await msg.edit_original_response(embed=self.embed)
+        return await msg.edit_original_response(embed=self.embed,file=file)
