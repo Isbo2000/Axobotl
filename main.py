@@ -46,7 +46,7 @@ async def after_invoke(ctx: discord.ApplicationContext):
     if ctx.guild: place = ctx.guild.name
     else: place = "DMs"
 
-    print(f"{ctx.author} used '/{ctx.command}' in {place} at {datetime.datetime.now().strftime(f'%m/%d/%Y %I:%M:%S %p')}")
+    print(f"{ctx.author} used '/{ctx.command}' in {place} at {datetime.datetime.now():%m/%d/%Y %I:%M:%S %p}")
 
 @bot.event
 async def on_application_command_error(ctx: discord.ApplicationContext, error: discord.DiscordException):
