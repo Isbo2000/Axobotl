@@ -12,12 +12,10 @@ class Embeds:
         )
         .respond(
             ctx: discord.ApplicationContext,
-            ephemeral: bool = False,
-            file: discord.File | None = None
+            ephemeral: bool = False
         )
         .edit(
-            msg: discord.Interaction,
-            file: discord.File | None = None
+            msg: discord.Interaction | discord.WebhookMessage
         )
 
     Create, send, and edit discord embed objects
@@ -30,6 +28,7 @@ class Embeds:
             color: list = config['color'],
             fields: list = [],
             image: str | None = None,
+            file: discord.File | None = None,
             author: dict | None = None,
             thumbnail: str | None = None
         ):
@@ -57,7 +56,14 @@ class Embeds:
         self.bot = bot
         self.title = title
         self.color = discord.Color.from_rgb(int(color[0]),int(color[1]),int(color[2]))
-        self.image = image
+
+        if file:
+            self.image = f"attachment://{file.filename}"
+            self.file = file
+        else:
+            self.image = image
+            self.file = None
+            
         self.author = author
         self.thumbnail = thumbnail
 
@@ -128,20 +134,25 @@ class Embeds:
         """
         return await place.send(embed=self.embed)
     
-    async def respond(self, ctx: discord.ApplicationContext, ephemeral: bool = False, file: discord.File | None = None):
+    async def respond(self, ctx: discord.ApplicationContext, ephemeral: bool = False):
         """
         Responds with the created embed object
         """
         try:
-            if file: return await ctx.respond(embed=self.embed,ephemeral=ephemeral,file=file)
+            if self.file: return await ctx.respond(embed=self.embed,ephemeral=ephemeral,file=self.file)
             else: return await ctx.respond(embed=self.embed,ephemeral=ephemeral)
 
         except discord.NotFound:
             return await ctx.channel.send(embed=self.embed,delete_after=10 if ephemeral else None)
     
-    async def edit(self, msg: discord.Interaction, file: discord.File | None = None):
+    async def edit(self, msg: discord.Interaction | discord.WebhookMessage):
         """
         Edits the sent embed message
         """
-        if file: return await msg.edit_original_response(embed=self.embed,file=file)
-        else: return await msg.edit_original_response(embed=self.embed)
+        if isinstance(msg, discord.Interaction):
+            if self.file: return await msg.edit_original_response(embed=self.embed,file=self.file)
+            else: return await msg.edit_original_response(embed=self.embed)
+        
+        elif isinstance(msg, discord.WebhookMessage):
+            if self.file: return await msg.edit(embed=self.embed,file=self.file)
+            else: return await msg.edit(embed=self.embed)
