@@ -13,11 +13,11 @@ class Embeds:
         .respond(
             ctx: discord.ApplicationContext,
             ephemeral: bool = False,
-            file: discord.File | None = None
+            file: discord.File = None
         )
         .edit(
             msg: discord.Interaction,
-            file: discord.File | None = None
+            file: discord.File = None
         )
 
     Create, send, and edit discord embed objects
@@ -128,7 +128,7 @@ class Embeds:
         """
         return await place.send(embed=self.embed)
     
-    async def respond(self, ctx: discord.ApplicationContext, ephemeral: bool = False, file: discord.File | None = None):
+    async def respond(self, ctx: discord.ApplicationContext, ephemeral: bool = False, file: discord.File = None):
         """
         Responds with the created embed object
         """
@@ -138,7 +138,7 @@ class Embeds:
         except discord.NotFound:
             return await ctx.channel.send(embed=self.embed,delete_after=10 if ephemeral else None)
     
-    async def edit(self, msg: discord.Interaction, file: discord.File | None = None):
+    async def edit(self, msg: discord.Interaction, file: discord.File = None):
         """
         Edits the sent embed message
         """
