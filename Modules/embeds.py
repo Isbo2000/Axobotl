@@ -133,7 +133,8 @@ class Embeds:
         Responds with the created embed object
         """
         try:
-            return await ctx.respond(embed=self.embed,ephemeral=ephemeral,file=file)
+            if file: return await ctx.respond(embed=self.embed,ephemeral=ephemeral,file=file)
+            else: return await ctx.respond(embed=self.embed,ephemeral=ephemeral)
 
         except discord.NotFound:
             return await ctx.channel.send(embed=self.embed,delete_after=10 if ephemeral else None)
@@ -142,4 +143,5 @@ class Embeds:
         """
         Edits the sent embed message
         """
-        return await msg.edit_original_response(embed=self.embed,file=file)
+        if file: return await msg.edit_original_response(embed=self.embed,file=file)
+        else: return await msg.edit_original_response(embed=self.embed)
