@@ -133,8 +133,7 @@ class Embeds:
         Responds with the created embed object
         """
         try:
-            if file: return await ctx.respond(embed=self.embed,ephemeral=ephemeral,file=file)
-            else: return await ctx.respond(embed=self.embed,ephemeral=ephemeral)
+            return await ctx.respond(embed=self.embed,ephemeral=ephemeral,file=file)
 
         except discord.NotFound:
             return await ctx.channel.send(embed=self.embed,delete_after=10 if ephemeral else None)
