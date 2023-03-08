@@ -28,8 +28,6 @@ class Text(commands.Cog):
         if amogus: size = size if size < 200 else 200
         else: size = size if size < 250 else 250
 
-        print(size)
-
         height = image.height - ImageDraw.Draw(testim).textbbox((50,50), text, font=ImageFont.truetype(font,size))[3]
         height = round((height / 2) if height > 0 else height)
 
