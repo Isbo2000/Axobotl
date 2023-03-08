@@ -8,8 +8,8 @@ class Text(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
-    @discord.slash_command(name="text",description="")
-    @discord.option(name="text",description="",required=True)
+    @discord.slash_command(name="text",description="Puts a given string of text onto a transparent image")
+    @discord.option(name="text",description="Enter text to use",required=True)
     async def text(self, ctx: discord.ApplicationContext, text: str):
         await ctx.defer()
 
