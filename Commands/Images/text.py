@@ -10,20 +10,25 @@ class Text(commands.Cog):
     
     @discord.slash_command(name="text",description="Puts a given string of text onto a transparent image")
     @discord.option(name="text",description="Enter text to use",required=True)
-    async def text(self, ctx: discord.ApplicationContext, text: str):
+    @discord.option(name="amogus",description="",required=False)
+    async def text(self, ctx: discord.ApplicationContext, text: str, amogus: bool = False):
         await ctx.defer()
 
         with Image.open("./Assets/Commands/text/text.png") as image:
             image.load()
         image.copy()
 
-        font = "./Assets/Fonts/Questrial-Regular.ttf"
+        if amogus: font = "./Assets/Fonts/AmongUsFilled/AmongUsFilled-Regular.ttf"
+        else: font = "./Assets/Fonts/Questrial/Questrial-Regular.ttf"
         
         testim = Image.new('RGB', (image.width, image.height))
 
         width = ImageDraw.Draw(testim).textbbox((50,50), text, font=ImageFont.truetype(font,100))[2]
         size = round(100 / (width / image.width) * 0.90)
-        size = size if size < 250 else 250
+        if amogus: size = size if size < 200 else 200
+        else: size = size if size < 250 else 250
+
+        print(size)
 
         height = image.height - ImageDraw.Draw(testim).textbbox((50,50), text, font=ImageFont.truetype(font,size))[3]
         height = round((height / 2) if height > 0 else height)
