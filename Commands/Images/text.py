@@ -10,7 +10,7 @@ class Text(commands.Cog):
     
     @discord.slash_command(name="text",description="Puts a given string of text onto a transparent image")
     @discord.option(name="text",description="Enter text to use",required=True)
-    @discord.option(name="amogus",description="",required=False)
+    @discord.option(name="amogus",description="The font is among us???",required=False)
     async def text(self, ctx: discord.ApplicationContext, text: str, amogus: bool = False):
         await ctx.defer()
 
