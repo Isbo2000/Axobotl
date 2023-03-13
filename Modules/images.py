@@ -5,7 +5,7 @@ import io
 class Images:
     """
     Easier way of working with PIL images
-    
+
     Images() => None
         .load(
             image: str | bytes | discord.Attachment
@@ -14,6 +14,7 @@ class Images:
         .add_textbox(
             image: Image.Image | None,
             text: str,
+            color: [r: int, g: int, b: int] | None = (0, 0, 0),
             location: (x: int, y: int) | None = (0, 0),
             textbox_size: (width: int, height: int) | None,
             font: str | None = "Questrial",
@@ -49,15 +50,18 @@ class Images:
     def add_textbox(
             image: Image.Image | None,
             text: str,
+            color: list[int,int,int] | None = None,
             location: tuple[int,int] | None = None,
             textbox_size: tuple[int,int] | None = None,
             font: str | None = None,
-            max_size: int = 250
+            max_size: int = 250,
+            target_size: int = 100
         ):
         """
         .add_textbox(
             image: Image.Image | None,
             text: str,
+            color: [r: int, g: int, b: int] | None = (0, 0, 0),
             location: (x: int, y: int) | None = (0, 0),
             textbox_size: (width: int, height: int) | None,
             font: str | None = "Questrial",
@@ -67,7 +71,7 @@ class Images:
         Create textbox with given text and add it to a given image
         """
 
-        if font == None: font = "./Assets/Fonts/Questrial/Questrial-Regular.ttf"; max_size = 250
+        if font == None: font = "./Assets/Fonts/Questrial/Questrial-Regular.ttf"
 
         with Image.open("./Assets/Commands/text/text.png") as textbox:
             textbox.load()
@@ -78,14 +82,18 @@ class Images:
         
         testimg = Image.new('RGB', (textbox.width, textbox.height))
 
-        width = ImageDraw.Draw(testimg).textbbox((50,50), text, font=ImageFont.truetype(font,100))[2]
-        size = round(100 / (width / textbox.width) * 0.90)
+        width = ImageDraw.Draw(testimg).textbbox((50,50), text, font=ImageFont.truetype(font,target_size))[2]
+        size = round(target_size / (width / textbox.width) * 0.90)
         size = size if size < max_size else max_size
 
         height = textbox.height - ImageDraw.Draw(testimg).textbbox((50,50), text, font=ImageFont.truetype(font,size))[3]
         height = round((height / 2) if height > 0 else height)
 
-        ImageDraw.Draw(textbox).text((50,height), text, font=ImageFont.truetype(font,size))
+        color = color if color else (0,0,0)
+
+        stroke = (255,255,255) if color < (127,127,127) else (0,0,0)
+
+        ImageDraw.Draw(textbox).text((50,height), text, fill=color, stroke_width=2, stroke_fill=stroke, font=ImageFont.truetype(font,size))
 
         if image == None:
             return textbox
