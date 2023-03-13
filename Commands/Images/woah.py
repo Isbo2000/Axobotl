@@ -8,7 +8,7 @@ class Woah(commands.Cog):
     def __init__(self, bot):
         self.bot = bot
     
-    @discord.slash_command(name="woah",description="Puts a given string of text and image onto a 'woah reaction meme'")
+    @discord.slash_command(name="woah",description="Replies with a 'woah reaction meme'")
     @discord.option(name="text",description="Enter text to use",required=True)
     @discord.option(name="attachment",description="Attach image to use",required=True)
     async def woah(self, ctx: discord.ApplicationContext, text: str, attachment: discord.Attachment):
@@ -22,7 +22,11 @@ class Woah(commands.Cog):
 
         image = image.resize((225,190))
 
-        bg.paste(image,(350,375))
+        try:
+            bg.paste(image,(350,375),image)
+        
+        except ValueError:
+            bg.paste(image,(350,375))
 
         file = Modules.Images.save(bg,"Woah.png")
 
