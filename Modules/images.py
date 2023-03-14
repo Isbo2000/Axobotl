@@ -50,7 +50,7 @@ class Images:
     def add_textbox(
             image: Image.Image | None,
             text: str,
-            color: list[int,int,int] | None = None,
+            color: tuple[int,int,int] | None = None,
             location: tuple[int,int] | None = None,
             textbox_size: tuple[int,int] | None = None,
             font: str | None = None,
