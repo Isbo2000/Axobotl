@@ -1,8 +1,6 @@
 from discord.ext import commands
-from PIL import Image, ImageDraw, ImageFont
 import discord
 import Modules
-import io
 
 class Crttv(commands.Cog):
     def __init__(self, bot):
