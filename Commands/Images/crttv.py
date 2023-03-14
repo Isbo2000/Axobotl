@@ -1,6 +1,10 @@
 from discord.ext import commands
 import discord
 import Modules
+import json
+
+with open('./Assets/config.json') as cfg:
+    config = json.load(cfg)
 
 class Crttv(commands.Cog):
     def __init__(self, bot):
@@ -8,6 +12,7 @@ class Crttv(commands.Cog):
     
     @discord.slash_command(name="crttv",description="Puts a given image onto a crttv")
     @discord.option(name="attachment",description="Attach image to use",required=True)
+    @commands.cooldown(1,config['cooldown'],commands.BucketType.member)
     async def crttv(self, ctx: discord.ApplicationContext, attachment: discord.Attachment):
         await ctx.defer()
 

@@ -1,6 +1,10 @@
 from discord.ext import commands
 import discord
 import Modules
+import json
+
+with open('./Assets/config.json') as cfg:
+    config = json.load(cfg)
 
 class Woah(commands.Cog):
     def __init__(self, bot):
@@ -9,6 +13,7 @@ class Woah(commands.Cog):
     @discord.slash_command(name="woah",description="Replies with a 'woah reaction meme'")
     @discord.option(name="text",description="Enter text to use",required=True)
     @discord.option(name="attachment",description="Attach image to use",required=True)
+    @commands.cooldown(1,config['cooldown'],commands.BucketType.member)
     async def woah(self, ctx: discord.ApplicationContext, text: str, attachment: discord.Attachment):
         await ctx.defer()
 

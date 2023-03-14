@@ -1,6 +1,10 @@
 from discord.ext import commands
 import discord
 import Modules
+import json
+
+with open('./Assets/config.json') as cfg:
+    config = json.load(cfg)
 
 class Text(commands.Cog):
     def __init__(self, bot):
@@ -9,6 +13,7 @@ class Text(commands.Cog):
     @discord.slash_command(name="text",description="Puts a given string of text onto a transparent image")
     @discord.option(name="text",description="Enter text to use",required=True)
     @discord.option(name="amogus",description="The font is Among Us???",required=False)
+    @commands.cooldown(1,config['cooldown'],commands.BucketType.member)
     async def text(self, ctx: discord.ApplicationContext, text: str, amogus: bool = False):
         await ctx.defer()
 
