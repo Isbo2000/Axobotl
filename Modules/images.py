@@ -76,9 +76,6 @@ class Images:
         with Image.open("./Assets/Commands/text/text.png") as textbox:
             textbox.load()
         textbox.copy()
-
-        if textbox_size:
-            textbox = textbox.resize(textbox_size)
         
         testimg = Image.new('RGB', (textbox.width, textbox.height))
 
@@ -94,6 +91,9 @@ class Images:
         stroke = (255,255,255) if color < (127,127,127) else (0,0,0)
 
         ImageDraw.Draw(textbox).text((50,height), text, fill=color, stroke_width=2, stroke_fill=stroke, font=ImageFont.truetype(font,size))
+
+        if textbox_size:
+            textbox = textbox.resize(textbox_size)
 
         if image == None:
             return textbox
