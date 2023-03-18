@@ -18,7 +18,7 @@ class Larry(commands.Cog):
     
     @discord.slash_command(name="larry",description="Larry!!")
     @discord.option(name="prompt",description="Talk to Larry",required=False)
-    @commands.cooldown(1,1,commands.BucketType.member)
+    @commands.cooldown(1,2,commands.BucketType.member)
     async def crttv(self, ctx: discord.ApplicationContext, prompt: str = ""):
         await ctx.defer()
 
@@ -50,9 +50,11 @@ class Larry(commands.Cog):
 
         Modules.Images.add_textbox(larry,response,None,(19,50),(440,110),target_size=50)
 
+        title = f'> "{prompt}"' if not prompt == "" else ""
+
         file = Modules.Images.save(larry,"Larry.png")
 
-        await Modules.Embeds(self.bot,file=file).respond(ctx)
+        await Modules.Embeds(self.bot,title=title,file=file).respond(ctx)
 
 def setup(bot):
     bot.add_cog(Larry(bot))
