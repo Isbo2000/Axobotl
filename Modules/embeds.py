@@ -69,15 +69,16 @@ class Embeds:
 
         invite = f"https://discord.com/api/oauth2/authorize?client_id={self.bot.user.id}&permissions={config['permissions']}&scope=applications.commands%20bot"
         server = f"https://discord.gg/{config['server']}"
+        sauce = "https://github.com/Isbo2000/Axobotl"
 
         if description:
             self.description = description
-            descript = {"name":"","value":f"[Invite Me!]({invite})   |   [Join Server!]({server})"}
+            descript = {"name":"","value":f"[Invite Me!]({invite})   |   [Join Server!]({server})   |   [View Code!]({sauce})"}
             if fields:
                 fields.append(descript)
             else: fields = [descript]
         else:
-            self.description = f"[Invite Me!]({invite})   |   [Join Server!]({server})"
+            self.description = f"[Invite Me!]({invite})   |   [Join Server!]({server})   |   [View Code!]({sauce})"
         
         self.fields = fields
         
