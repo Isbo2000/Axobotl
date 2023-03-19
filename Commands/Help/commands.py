@@ -32,6 +32,8 @@ class Commands(commands.Cog):
                 "value": cmds
             })
         
+        fields.sort(key=lambda f : f["name"])
+        
         await Modules.Embeds(self.bot,title=title,fields=fields,description=description).respond(ctx)
 
 def setup(bot):
