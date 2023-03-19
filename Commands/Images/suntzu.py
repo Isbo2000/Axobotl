@@ -18,7 +18,7 @@ class Suntzu(commands.Cog):
 
         image = await Modules.Images.load("./Assets/Commands/suntzu/suntzu.jpg")
 
-        Modules.Images.add_textbox(image,text,(255,255,255),(400,150),(700,175))
+        Modules.Images.add_textbox(image,text,(255,255,255),(400,150),(700,250))
 
         file = Modules.Images.save(image, "SunTzuFakeQuote.png")
 

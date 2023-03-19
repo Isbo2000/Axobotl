@@ -48,9 +48,9 @@ class Larry(commands.Cog):
         
         response = random.choice(responses)
 
-        Modules.Images.add_textbox(larry,response,None,(19,50),(440,110),target_size=50)
+        Modules.Images.add_textbox(larry,response,(255,255,255),(4,50),(470,250),max_size=150)
 
-        title = f'> "{prompt}"' if not prompt == "" else ""
+        title = (f'> "{prompt}"' if len(prompt) < 250 else f'> "{prompt[:249]}..."' ) if not prompt == "" else ""
 
         file = Modules.Images.save(larry,"Larry.png")
 

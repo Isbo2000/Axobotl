@@ -1,5 +1,6 @@
 from PIL import Image, ImageDraw, ImageFont
 import discord
+import math
 import io
 
 class Images:
@@ -14,11 +15,14 @@ class Images:
         .add_textbox(
             image: Image.Image | None,
             text: str,
-            color: [r: int, g: int, b: int] | None = (0, 0, 0),
+            color: (r: int, g: int, b: int) | None = (0, 0, 0),
             location: (x: int, y: int) | None = (0, 0),
             textbox_size: (width: int, height: int) | None,
             font: str | None = "Questrial",
-            max_size: int | None = "250"
+            max_size: int | None = "250",
+            target_size: int | None = "100",
+            textbox_color: (r: int, g: int, b: int, a: int) | None = (0, 0, 0, 0),
+            center: bool = True
         ) = > Image.Image
 
         .save(
@@ -54,18 +58,23 @@ class Images:
             location: tuple[int,int] | None = None,
             textbox_size: tuple[int,int] | None = None,
             font: str | None = None,
-            max_size: int = 250,
-            target_size: int = 100
+            max_size: int | None = None,
+            target_size: int = 100,
+            textbox_color: tuple[int,int,int,int] | None = None,
+            center: bool = True
         ):
         """
         .add_textbox(
             image: Image.Image | None,
             text: str,
-            color: [r: int, g: int, b: int] | None = (0, 0, 0),
+            color: (r: int, g: int, b: int) | None = (0, 0, 0),
             location: (x: int, y: int) | None = (0, 0),
             textbox_size: (width: int, height: int) | None,
             font: str | None = "Questrial",
-            max_size: int | None = "250"
+            max_size: int | None = "250",
+            target_size: int | None = "100",
+            textbox_color: (r: int, g: int, b: int, a: int) | None = (0, 0, 0, 0),
+            center: bool = True
         ) = > Image.Image
 
         Create textbox with given text and add it to a given image
@@ -76,24 +85,27 @@ class Images:
         with Image.open("./Assets/Commands/text/text.png") as textbox:
             textbox.load()
         textbox.copy()
-        
-        testimg = Image.new('RGB', (textbox.width, textbox.height))
-
-        width = ImageDraw.Draw(testimg).textbbox((50,50), text, font=ImageFont.truetype(font,target_size))[2]
-        size = round(target_size / (width / textbox.width) * 0.90)
-        size = size if size < max_size else max_size
-
-        height = textbox.height - ImageDraw.Draw(testimg).textbbox((50,50), text, font=ImageFont.truetype(font,size))[3]
-        height = round((height / 2) if height > 0 else height)
-
-        color = color if color else (0,0,0)
-
-        stroke = (255,255,255) if color < (127,127,127) else (0,0,0)
-
-        ImageDraw.Draw(textbox).text((50,height), text, fill=color, stroke_width=2, stroke_fill=stroke, font=ImageFont.truetype(font,size))
 
         if textbox_size:
             textbox = textbox.resize(textbox_size)
+            max_size = max_size if max_size else textbox_size[1]
+        else:
+            max_size = max_size if max_size else 250
+
+        if textbox_color: ImageDraw.Draw(textbox).rectangle([0,0,textbox.width,textbox.height],textbox_color)
+        
+        testimg = Image.new('RGB', (textbox.width, textbox.height))
+
+        width = ImageDraw.Draw(testimg).textbbox((0,0), text, font=ImageFont.truetype(font,target_size))[2]
+        size = round(target_size / (width / textbox.width) * 0.90)
+        size = size if size < max_size else max_size
+
+        l,t,r,b = ImageDraw.Draw(testimg).textbbox((0,0), text, font=ImageFont.truetype(font,size))
+
+        color = color if color else (0,0,0)
+        stroke = (255,255,255) if color < (127,127,127) else (0,0,0)
+        
+        ImageDraw.Draw(textbox).text((((textbox.width-r)/2) if center else 10,(textbox.height-b)/2), text, fill=color, stroke_width=2, stroke_fill=stroke, font=ImageFont.truetype(font,size))
 
         if image == None:
             return textbox

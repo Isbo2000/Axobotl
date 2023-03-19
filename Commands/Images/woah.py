@@ -19,7 +19,7 @@ class Woah(commands.Cog):
 
         bg = await Modules.Images.load("./Assets/Commands/woah/woah.png")
 
-        Modules.Images.add_textbox(bg,text,None,(-10,-15),(400,100),max_size=100,target_size=20)
+        Modules.Images.add_textbox(bg,text,None,(0,-25),(300,100),max_size=50,target_size=20,center=False)
 
         image = await Modules.Images.load(attachment)
 
