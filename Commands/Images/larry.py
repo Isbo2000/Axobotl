@@ -1,5 +1,4 @@
 from discord.ext import commands
-import collections
 import discord
 import Modules
 import random

@@ -1,6 +1,5 @@
 from PIL import Image, ImageDraw, ImageFont
 import discord
-import math
 import io
 
 class Images:
