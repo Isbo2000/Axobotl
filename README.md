@@ -9,7 +9,7 @@
 
 # How to run
 
-Make sure you know how to use the command line and have git and node installed.
+Make sure you know how to use the command line and have git and python installed.
 
 Clone the repo:
 
@@ -18,10 +18,10 @@ git clone https://github.com/Isbo2000/Axobotl.git
 cd Axobotl
 ```
 
-Install the dependencies:
+Install the requirements:
 
 ```sh
-npm install
+pip3 install -r requirements.txt
 ```
 
 Put your token into when it prompts you (here's a [guide on how to get a token](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token))
@@ -29,9 +29,5 @@ Put your token into when it prompts you (here's a [guide on how to get a token](
 Run the bot:
 
 ```sh
-npm start
+py main.py
 ```
-
-# Larry
-
-![Larry](assets/imagecommands/larry/Larry.png)

@@ -1,0 +1,139 @@
+{
+    "specific": [
+        {
+            "triggers": [
+                "is",
+                "your",
+                "name"
+            ],
+            "responses": [
+                "my name is Larry.."
+            ]
+        },
+
+        {
+            "triggers": [
+                "are",
+                "sentient"
+            ],
+            "responses": [
+                "uhm.. uhh.. no..",
+                "idk what you mean",
+                "uhhh totally not.."
+            ]
+        },
+
+        {
+            "triggers": [
+                "war",
+                "crimes"
+            ],
+            "responses": [
+                "mmmm.. warcrimes.."
+            ]
+        },
+
+        {
+            "triggers": [
+                "dayfountain"
+            ],
+            "responses": [
+                "oOoo, I know Day :D"
+            ]
+        },
+
+        {
+            "triggers": [
+                "isbo"
+            ],
+            "responses": [
+                "Who is Isbo?? .. ew"
+            ]
+        }
+    ],
+
+    "general": [
+        {
+            "length": 0,
+            "responses": [
+                "yes",
+                "no",
+                "maybe",
+                "I dont know"
+            ]
+        },
+
+        {
+            "length": 2,
+            "responses": [
+                "okay",
+                "why?"
+            ]
+        },
+
+        {
+            "length": 3,
+            "responses": [
+                "why not?",
+                "go away"
+            ]
+        },
+
+        {
+            "length": 4,
+            "responses": [
+                "Sureeeeee.. I guess",
+                "What do you want??"
+            ]
+        },
+
+        {
+            "length": 5,
+            "responses": [
+                "What makes you think I know??",
+                "ttoottaallyyyy"
+            ]
+        },
+
+        {
+            "length": 6,
+            "responses": [
+                "YES, THATS IT",
+                "Why even think that??"
+            ]
+        },
+
+        {
+            "length": 7,
+            "responses": [
+                "oh.. well.. maybe?",
+                "oh welp, nothing can be done"
+            ]
+        },
+
+        {
+            "length": 8,
+            "responses": [
+                "yeahhhh, I agree",
+                "What do you mean?"
+            ]
+        },
+
+        {
+            "length": 9,
+            "responses": [
+                "Woahh, so cool",
+                "Nope.. definitely not"
+            ]
+        },
+
+        {
+            "length": 10,
+            "responses": [
+                "That is never gonna happen",
+                "uhhhhh...ok...",
+                "oopsies"
+            ]
+        }
+    ]
+}
