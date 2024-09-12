@@ -17,7 +17,7 @@ class Larry(commands.Cog):
     
     @discord.slash_command(name="larry",description="Larry!!")
     @discord.option(name="prompt",description="Talk to Larry",required=False)
-    @commands.cooldown(1,2,commands.BucketType.member)
+    @commands.cooldown(1,config['cooldown'],commands.BucketType.member)
     async def crttv(self, ctx: discord.ApplicationContext, prompt: str = ""):
         await ctx.defer()
 
