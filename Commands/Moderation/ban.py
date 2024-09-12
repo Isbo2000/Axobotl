@@ -54,7 +54,7 @@ class Ban(commands.Cog):
         title = f"Banned {user} from the server"
         description = f"**Reason:** {reason}\n\nDeleted {f'the {delete_messages}' if delete_messages else 'none'} of their message history"
 
-        await Modules.Embeds(self.bot,title=title,description=description).respond(ctx,True)
+        await Modules.Embeds(self.bot,title=title,description=description).respond(ctx)
 
 def setup(bot):
     bot.add_cog(Ban(bot))

@@ -22,7 +22,7 @@ class Nick(commands.Cog):
         title = f"Changed {user}'s nickname to: {new.display_name if new else user.display_name}"
         description = f"**Reason:** {reason}"
 
-        await Modules.Embeds(self.bot,title=title,description=description).respond(ctx,True)
+        await Modules.Embeds(self.bot,title=title,description=description).respond(ctx)
 
 def setup(bot):
     bot.add_cog(Nick(bot))
