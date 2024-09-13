@@ -6,11 +6,10 @@ class Images:
     """
     Easier way of working with PIL images
 
-    Images() => None
+    Images()
         .load(
             image: str | bytes | discord.Attachment
-        ) => Image.Image
-
+        )
         .add_textbox(
             image: Image.Image | None,
             text: str,
@@ -22,20 +21,17 @@ class Images:
             target_size: int | None = "100",
             textbox_color: (r: int, g: int, b: int, a: int) | None = (0, 0, 0, 0),
             center: bool = True
-        ) = > Image.Image
-
+        )
         .save(
             image: Image.Image,
             filename: str | None = "Image.png"
-        ) => discord.File()
+        )
     """
     async def load(image: str | bytes | discord.Attachment):
         """
-        .load(
-            image: str | bytes | discord.Attachment
-        ) => Image.Image
-
         Open a given image into a Image.Image object
+
+        image: str | bytes | discord.Attachment
         """
 
         if isinstance(image, bytes):
@@ -63,20 +59,27 @@ class Images:
             center: bool = True
         ):
         """
-        .add_textbox(
-            image: Image.Image | None,
-            text: str,
-            color: (r: int, g: int, b: int) | None = (0, 0, 0),
-            location: (x: int, y: int) | None = (0, 0),
-            textbox_size: (width: int, height: int) | None,
-            font: str | None = "Questrial",
-            max_size: int | None = "250",
-            target_size: int | None = "100",
-            textbox_color: (r: int, g: int, b: int, a: int) | None = (0, 0, 0, 0),
-            center: bool = True
-        ) = > Image.Image
-
         Create textbox with given text and add it to a given image
+
+        image: Image.Image | None
+
+        text: str
+
+        color: (r: int, g: int, b: int) | None = (0, 0, 0)
+
+        location: (x: int, y: int) | None = (0, 0)
+
+        textbox_size: (width: int, height: int) | None
+
+        font: str | None = "Questrial"
+
+        max_size: int | None = "250"
+
+        target_size: int | None = "100"
+
+        textbox_color: (r: int, g: int, b: int, a: int) | None = (0, 0, 0, 0)
+
+        center: bool = True
         """
 
         if font == None: font = "./Assets/Fonts/Questrial/Questrial-Regular.ttf"
@@ -115,12 +118,11 @@ class Images:
     
     def save(image: Image.Image, filename: str | None = None):
         """
-        .save(
-            image: Image.Image,
-            filename: str | None = "Image.png"
-        ) => discord.File()
-
         Save a given image as a discord.File() object with the given filename
+
+        image: Image.Image
+
+        filename: str | None = "Image.png"
         """
 
         buffer = io.BytesIO()

@@ -25,7 +25,7 @@ class Timeout(commands.Cog):
         title = f"Timed out {user} for {minutes} minutes"
         description = f"**Reason:** {reason}"
 
-        await Modules.Embeds(self.bot,title=title,description=description).respond(ctx,True)
+        await Modules.Embeds(self.bot,title=title,description=description).respond(ctx)
         
 def setup(bot):
     bot.add_cog(Timeout(bot))

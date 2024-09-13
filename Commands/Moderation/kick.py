@@ -21,7 +21,7 @@ class Kick(commands.Cog):
         title = f"Kicked {user} from the server"
         description = f"**Reason:** {reason}"
 
-        await Modules.Embeds(self.bot,title=title,description=description).respond(ctx,True)
+        await Modules.Embeds(self.bot,title=title,description=description).respond(ctx)
 
 def setup(bot):
     bot.add_cog(Kick(bot))

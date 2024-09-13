@@ -6,7 +6,7 @@ with open('./Assets/config.json') as cfg:
 
 class Embeds:
     """
-    Embeds(bot: discord.Bot, **args) => discord.Embed()
+    Embeds(bot: discord.Bot, **args)
         .send(
             user: discord.User | discord.TextChannel
         )
@@ -17,6 +17,7 @@ class Embeds:
         .edit(
             msg: discord.Interaction | discord.WebhookMessage
         )
+        .create()
 
     Create, send, and edit discord embed objects
     """
@@ -35,15 +36,28 @@ class Embeds:
         """
         Creates a discord embed object
 
-        fields = {
+        bot: discord.Bot
+
+        title: str = ""
+
+        description: str | None = None
+
+        color: [r: int, g: int, b: int]
+
+        fields: [{
             "name": str,
             "value": str,
             (optional) "inline": bool
-        }
 
-        color = [r: int, g: int, b: int]
+        }]
 
-        author = {
+        image: str | None = None
+
+        file: discord.File | None = None
+
+        thumbnail: str | None = None
+
+        author: {
             "name": str,
             (optional) "icon_url": str,
             (optional) "url": str
@@ -107,11 +121,11 @@ class Embeds:
         if self.author:
             if "icon_url" in self.author:
                 icon_url = self.author["icon_url"]
-            else: icon_url = discord.Embed.Empty
+            else: icon_url = ""
 
             if "url" in self.author:
                 url =  self.author["url"]
-            else: url = discord.Embed.Empty
+            else: url = ""
 
             embed.set_author(
                 name=self.author["name"],
@@ -132,12 +146,18 @@ class Embeds:
     async def send(self, place: discord.User | discord.TextChannel):
         """
         Sends the created embed object
+
+        place: discord.User | discord.TextChannel
         """
         return await place.send(embed=self.embed)
     
     async def respond(self, ctx: discord.ApplicationContext, ephemeral: bool = False):
         """
         Responds with the created embed object
+
+        ctx: discord.ApplicationContext
+        
+        ephemeral: bool = False
         """
         try:
             if self.file: return await ctx.respond(embed=self.embed,ephemeral=ephemeral,file=self.file)
@@ -149,6 +169,8 @@ class Embeds:
     async def edit(self, msg: discord.Interaction | discord.WebhookMessage):
         """
         Edits the sent embed message
+
+        msg: discord.Interaction | discord.WebhookMessage
         """
         if isinstance(msg, discord.Interaction):
             if self.file: return await msg.edit_original_response(embed=self.embed,file=self.file)
@@ -157,3 +179,9 @@ class Embeds:
         elif isinstance(msg, discord.WebhookMessage):
             if self.file: return await msg.edit(embed=self.embed,file=self.file)
             else: return await msg.edit(embed=self.embed)
+    
+    def create(self):
+        """
+        Returns a discord.Embed object
+        """
+        return self.embed

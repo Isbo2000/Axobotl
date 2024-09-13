@@ -1,6 +1,7 @@
 print("|\nInitializing...")
 
 from discord.ext import commands
+from dotenv import load_dotenv
 import datetime
 import discord
 import Modules
@@ -18,17 +19,42 @@ with open('./Assets/config.json') as cfg:
 
 def asktoken():
     token = pwinput.pwinput("|\nPlease enter your token (it is only stored locally): ", "*")
-    with open('./Assets/token.json', 'w') as tkn:
-        json.dump(token, tkn)
+    prev = ""
+    if os.path.exists('.env'):
+        with open('.env') as env:
+            prev = env.read()
+    with open('.env', 'w') as env:
+        env.write(prev+"\nTOKEN="+token)
     return checktoken()
 def checktoken():
-    if os.path.exists('./Assets/token.json'):
-        with open('./Assets/token.json') as tkn:
-            token = json.load(tkn)
-        print("|\nToken found!")
-        return token
+    if os.path.exists('.env'):
+        load_dotenv()
+        if os.getenv('TOKEN'):
+            print("|\nToken found!")
+            return os.getenv('TOKEN')
+        else:
+            return asktoken()
     else:
         return asktoken()
+
+def askapi(name,key,web):
+    apikey = pwinput.pwinput("|\nPlease enter your api key for "+web+" (it is only stored locally): ", "*")
+    prev = ""
+    if os.path.exists('.env'):
+        with open('.env') as env:
+            prev = env.read()
+    with open('.env', 'w') as env:
+        env.write(prev+"\n"+key+"="+apikey)
+    return checkapi(name,key,web)
+def checkapi(name,key,web):
+    if os.path.exists('.env'):
+        load_dotenv()
+        if os.getenv(key):
+            print("|\n"+name+" image API key found!")
+        else:
+            return askapi(name,key,web)
+    else:
+        return askapi(name,key,web)
 
 bot = discord.Bot(
     description="\n".join(config["description"]),
@@ -56,7 +82,7 @@ async def after_invoke(ctx: discord.ApplicationContext):
 @bot.event
 async def on_application_command_error(ctx: discord.ApplicationContext, error: discord.DiscordException):
     if isinstance(error, commands.CommandOnCooldown):
-        timestamp = str(datetime.datetime.now().timestamp()+ctx.command.cooldown.get_retry_after()).split('.')[0]
+        timestamp = str(datetime.datetime.now().timestamp()+ctx.command.get_cooldown_retry_after(ctx)).split('.')[0]
 
         title = "This command is on cooldown :("
         description = f"You can use {ctx.command.mention} again <t:{timestamp}:R>"
@@ -154,6 +180,15 @@ async def on_application_command_error(ctx: discord.ApplicationContext, error: d
 try:
     print("|\nChecking for token...")
     token = checktoken()
+
+    print("|\nChecking for api keys...")
+    apis = [
+        ["Cat", "CATAPIKEY", "https://thecatapi.com"],
+        ["Dog", "DOGAPIKEY", "https://thedogapi.com"],
+        ["Frog", "FROGAPIKEY", "https://unsplash.com"]
+    ]
+    for api in apis:
+        checkapi(api[0],api[1],api[2])
 
     print("|")
     for (dirpath, dirnames, filenames) in os.walk("./Commands"):
