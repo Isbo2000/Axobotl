@@ -19,12 +19,12 @@ with open('./Assets/config.json') as cfg:
 
 def asktoken():
     token = pwinput.pwinput("|\nPlease enter your token (it is only stored locally): ", "*")
-    with open('./Assets/.env', 'w') as env:
+    with open('./.env', 'w') as env:
         env.write("TOKEN="+token)
     return checktoken()
 def checktoken():
-    if os.path.exists('./Assets/.env'):
-        load_dotenv('./Assets/.env')
+    if os.path.exists('./.env'):
+        load_dotenv()
         token = os.getenv('TOKEN')
         print("|\nToken found!")
         return token
