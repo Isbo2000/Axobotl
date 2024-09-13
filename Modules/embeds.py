@@ -111,7 +111,7 @@ class Embeds:
 
             if "url" in self.author:
                 url =  self.author["url"]
-            else: url = discord.Embed.Empty
+            else: url = ""
 
             embed.set_author(
                 name=self.author["name"],
