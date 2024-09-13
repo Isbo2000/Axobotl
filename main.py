@@ -1,6 +1,7 @@
 print("|\nInitializing...")
 
 from discord.ext import commands
+from dotenv import load_dotenv
 import datetime
 import discord
 import Modules
