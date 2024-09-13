@@ -1,3 +1,4 @@
 py-cord ~= 2.6.0
 pwinput ~= 1.0.3
 Pillow ~= 10.4.0
+python-dotenv ~= 1.0.1
