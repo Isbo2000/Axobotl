@@ -82,7 +82,7 @@ async def after_invoke(ctx: discord.ApplicationContext):
 @bot.event
 async def on_application_command_error(ctx: discord.ApplicationContext, error: discord.DiscordException):
     if isinstance(error, commands.CommandOnCooldown):
-        timestamp = str(datetime.datetime.now().timestamp()+ctx.command.cooldown.get_retry_after()).split('.')[0]
+        timestamp = str(datetime.datetime.now().timestamp()+ctx.command.get_cooldown_retry_after(ctx)).split('.')[0]
 
         title = "This command is on cooldown :("
         description = f"You can use {ctx.command.mention} again <t:{timestamp}:R>"
