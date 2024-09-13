@@ -107,7 +107,7 @@ class Embeds:
         if self.author:
             if "icon_url" in self.author:
                 icon_url = self.author["icon_url"]
-            else: icon_url = discord.Embed.Empty
+            else: icon_url = ""
 
             if "url" in self.author:
                 url =  self.author["url"]
