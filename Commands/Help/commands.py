@@ -1,3 +1,4 @@
+from discord.ext.pages import Paginator, Page
 from discord.ext import commands
 import discord
 import Modules
@@ -33,8 +34,15 @@ class Commands(commands.Cog):
             })
         
         fields.sort(key=lambda f : f["name"])
+
+        pages = []
+        for field in fields:
+            page = Page(embeds=[
+                Modules.Embeds(self.bot,title=title,fields=[field],description=description).create()
+            ])
+            pages.append(page)
         
-        await Modules.Embeds(self.bot,title=title,fields=fields,description=description).respond(ctx)
+        await Paginator(pages).respond(ctx.interaction)
 
 def setup(bot):
     bot.add_cog(Commands(bot))
