@@ -1,5 +1,5 @@
 """
-Embeds(bot: discord.Bot, **args) => discord.Embed()
+#### Embeds(bot: discord.Bot, **args)
         .send(user: discord.User | discord.TextChannel)
 
         .respond(ctx: discord.ApplicationContext, ephemeral: bool = False)
@@ -8,12 +8,12 @@ Embeds(bot: discord.Bot, **args) => discord.Embed()
 
         .create()
 
-Images() => None
-        .load(image: str | bytes | discord.Attachment) => Image.Image
+#### Images()
+        .load(image: str | bytes | discord.Attachment)
 
-        .add_textbox(image: Image.Image | None, text: str, **args) = > Image.Image
+        .add_textbox(image: Image.Image | None, text: str, **args)
         
-        .save(image: Image.Image, filename: str | None = "Image.png") => discord.File()
+        .save(image: Image.Image, filename: str | None = "Image.png")
 """
 
 from Modules.embeds import Embeds
