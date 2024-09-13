@@ -21,7 +21,7 @@ class Updown(commands.Cog):
     @discord.option(name="text",description="Enter text to turn it upsidedown",required=True)
     @commands.cooldown(1,config['cooldown'],commands.BucketType.member)
     async def updown(self, ctx: discord.ApplicationContext, text: str):
-        result = "".join([code[i] if i in code else key[i] if i in key else i for i in text])[::-1]
+        result = str("".join([code[i] if i in code else key[i] if i in key else i for i in text]))[::-1]
 
         await Modules.Embeds(self.bot,title=result).respond(ctx)
 
