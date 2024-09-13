@@ -6,6 +6,8 @@ Embeds(bot: discord.Bot, **args) => discord.Embed()
 
         .edit(msg: discord.Interaction | discord.WebhookMessage)
 
+        .create()
+
 Images() => None
         .load(image: str | bytes | discord.Attachment) => Image.Image
 

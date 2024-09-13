@@ -17,6 +17,7 @@ class Embeds:
         .edit(
             msg: discord.Interaction | discord.WebhookMessage
         )
+        .create()
 
     Create, send, and edit discord embed objects
     """
@@ -157,3 +158,9 @@ class Embeds:
         elif isinstance(msg, discord.WebhookMessage):
             if self.file: return await msg.edit(embed=self.embed,file=self.file)
             else: return await msg.edit(embed=self.embed)
+    
+    def create(self):
+        """
+        Returns a discord.Embed object
+        """
+        return self.embed
