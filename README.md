@@ -17,6 +17,11 @@ Clone the repo:
 
 ```sh
 git clone https://github.com/Isbo2000/Axobotl.git
+```
+
+Go to the directory:
+
+```
 cd Axobotl
 ```
 
