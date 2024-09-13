@@ -18,8 +18,11 @@ class Dog(commands.Cog):
     async def dog(self, ctx: discord.ApplicationContext):
         title = "**Have a random dog!**"
 
-        load_dotenv()
-        request = requests.get("https://api.thedogapi.com/v1/images/search?api_key="+os.getenv("DOGAPIKEY"))
+        async def getrequest():
+            load_dotenv()
+            return requests.get("https://api.thedogapi.com/v1/images/search?api_key="+os.getenv("DOGAPIKEY"))
+        request = await getrequest()
+
         image = json.loads(request.content.decode('utf-8'))[0]['url']
 
         await Modules.Embeds(self.bot,title=title,image=image).respond(ctx)

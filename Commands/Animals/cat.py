@@ -18,8 +18,11 @@ class Cat(commands.Cog):
     async def cat(self, ctx: discord.ApplicationContext):
         title = "**Have a random cat!**"
 
-        load_dotenv()
-        request = requests.get("https://api.thecatapi.com/v1/images/search?api_key="+os.getenv("CATAPIKEY"))
+        async def getrequest():
+            load_dotenv()
+            return requests.get("https://api.thecatapi.com/v1/images/search?api_key="+os.getenv("CATAPIKEY"))
+        request = await getrequest()
+
         image = json.loads(request.content.decode('utf-8'))[0]['url']
 
         await Modules.Embeds(self.bot,title=title,image=image).respond(ctx)

@@ -18,10 +18,9 @@ class Frog(commands.Cog):
     async def frog(self, ctx: discord.ApplicationContext):
         title = "**Have a random frog!**"
 
-        async def getrequest() -> requests.Response:
+        async def getrequest():
             load_dotenv()
             return requests.get("https://api.unsplash.com/photos/random?query=frog&client_id="+os.getenv("FROGAPIKEY"))
-        
         request = await getrequest()
         content = json.loads(request.content.decode('utf-8'))
 
