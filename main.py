@@ -19,17 +19,42 @@ with open('./Assets/config.json') as cfg:
 
 def asktoken():
     token = pwinput.pwinput("|\nPlease enter your token (it is only stored locally): ", "*")
-    with open('./.env', 'w') as env:
-        env.write("TOKEN="+token)
+    prev = ""
+    if os.path.exists('.env'):
+        with open('.env') as env:
+            prev = env.read()
+    with open('.env', 'w') as env:
+        env.write(prev+"\nTOKEN="+token)
     return checktoken()
 def checktoken():
-    if os.path.exists('./.env'):
+    if os.path.exists('.env'):
         load_dotenv()
-        token = os.getenv('TOKEN')
-        print("|\nToken found!")
-        return token
+        if os.getenv('TOKEN'):
+            print("|\nToken found!")
+            return os.getenv('TOKEN')
+        else:
+            return asktoken()
     else:
         return asktoken()
+
+def askapi(name,key,web):
+    apikey = pwinput.pwinput("|\nPlease enter your api key for "+web+" (it is only stored locally): ", "*")
+    prev = ""
+    if os.path.exists('.env'):
+        with open('.env') as env:
+            prev = env.read()
+    with open('.env', 'w') as env:
+        env.write(prev+"\n"+key+"="+apikey)
+    return checkapi(name,key,web)
+def checkapi(name,key,web):
+    if os.path.exists('.env'):
+        load_dotenv()
+        if os.getenv(key):
+            print("|\n"+name+" image API key found!")
+        else:
+            return askapi(name,key,web)
+    else:
+        return askapi(name,key,web)
 
 bot = discord.Bot(
     description="\n".join(config["description"]),
@@ -155,6 +180,15 @@ async def on_application_command_error(ctx: discord.ApplicationContext, error: d
 try:
     print("|\nChecking for token...")
     token = checktoken()
+
+    print("|\nChecking for api keys...")
+    apis = [
+        ["Cat", "CATAPIKEY", "https://thecatapi.com"],
+        ["Dog", "DOGAPIKEY", "https://thedogapi.com"],
+        ["Frog", "FROGAPIKEY", "https://unsplash.com"]
+    ]
+    for api in apis:
+        checkapi(api[0],api[1],api[2])
 
     print("|")
     for (dirpath, dirnames, filenames) in os.walk("./Commands"):
