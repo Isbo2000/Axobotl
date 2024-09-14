@@ -28,7 +28,7 @@ cd Axobotl
 Install the requirements:
 
 ```sh
-pip3 install -r requirements.txt
+pip install -r requirements.txt
 ```
 
 Put your token into when it prompts you (here's a [guide on how to get a token](https://github.com/reactiflux/discord-irc/wiki/Creating-a-discord-bot-&-getting-a-token))
@@ -36,5 +36,5 @@ Put your token into when it prompts you (here's a [guide on how to get a token](
 Run the bot:
 
 ```sh
-py main.py
+python main.py
 ```
